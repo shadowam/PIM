@@ -40,7 +40,7 @@ struct Usuarios {
 } Usuario;
 */
 
-
+// INICIO DA FUNÇÃO PARA MOSTRAR O CABEÇALHO DO PROGRAMA
 void cabecalho()
 {
     gotoxy(1,1);
@@ -50,7 +50,10 @@ void cabecalho()
     printf(" ³                                                                                                                    ³\n");
     printf(" ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ\n");
 }
+// FIM DA FUNÇÃO CABEÇALHO
 
+
+// INICIO DA FUNÇÃO PARA MOSTRAR O RODAPE DO PROGRAMA
 void rodape()
 {
     gotoxy(1,38);
@@ -60,9 +63,50 @@ void rodape()
     printf(" ³                                                                                                                    ³\n");
     printf(" ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ\n");
 }
+// FIM DA FUNÇÃO RODAPÉ
 
-void lista() {
 
+// INICIO DA FUNÇÃO PARA MOSTRAR A ARTE DO LIVRE EM ASCII
+void mostralivro()
+{
+    gotoxy(1,8);
+    printf("                                            ~~~~~:D8                                                              \n");
+    printf("                                      ~~~~~~~~~~~~::D                 ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿\n");
+    printf("                                   ::~~~~~~~~~~~~~~::D                ³                                          ³\n");
+    printf("                                 ::::::::~~~~~~~~~~~::D               ³                                          ³\n");
+    printf("                                :::::::::::~~~~~~~~~:::D              ³                                          ³\n");
+    printf("                              ~::::::::::::::~~~~~~~~:::D             ³                                          ³\n");
+    printf("                     ,::::::~~~:::,,,,,,:::::::~~~~~:::::D            ³                                          ³\n");
+    printf("                  ,,,,:::::::~+~:,,....,,,::::::~~::::::::D           ³                                          ³\n");
+    printf("               ,,,,,,,,,::::::~~:,,......,,,::::::~~:::::::D          ³                                          ³\n");
+    printf("             ,,,,,,,,,,,,,:::::=~,,.......,,,::::::~~:::::,,D         ³                                          ³\n");
+    printf("           ,,,,,,,,,,,,,,,,::::~=:,,.......,,,::::::~~~::::,,D        ³                                          ³\n");
+    printf("        =,,,,,,,,,,,,,,,,,,,::::~=:,,.......,,,:::::::~~::::,.D       ³                                          ³\n");
+    printf("        ?=,,,,,,,,,,,,,,,,,,:::::~=,,,........,,:::::::~~:::::,D      ³                                          ³\n");
+    printf("       8O~=,,,,,,,,,,,,,,,,,::::::~=,,,........,,::::::::~~::::ID     ³                                          ³\n");
+    printf("       8OO~,,,,,,,,,,,,,,,,,:::::::~=,,,........,,,::::::::::,7O$N    ³                                          ³\n");
+    printf("        8O?=,,,,,...,,,,,,,,::::::::~:,,,.........,,,.?77Z$O7NDO      ³                                          ³\n");
+    printf("         DO++,,,,......,,,,,,::::::,:~:,,,....  ?IZ$$$$$$NDD          ³                                          ³\n");
+    printf("         DOO~~,,,,......,,,,,,::::::,:~:,,,..?O$$$O$$$DO              ³                                          ³\n");
+    printf("          8OO~,,,,.......,,,,,,::::::,:~:,,.8$$$$$ZDD                 ³                                          ³\n");
+    printf("           DO7=,,,........,,,,,,::::::,:~:,$Z$$$N8                    ³                                          ³\n");
+    printf("           DDO==,,,........,,,,,,::????I:~$$$$D                       ³                                          ³\n");
+    printf("            8OO=,,,.........,..???$$$ZZ$$NNMN                         ³                                          ³\n");
+    printf("             DO7=,,,.........??$$$$$$$$$$MD8                          ³                                          ³\n");
+    printf("             DDO?+,,.......I$ZO$$8$$NN   N                            ³                                          ³\n");
+    printf("              DOO+,,.....7Z$$$$$DO                                    ³                                          ³\n");
+    printf("               DOO+,....$$$$$NO                                       ³                                          ³\n");
+    printf("               NDO7+..$$$$ND                                          ³                                          ³\n");
+    printf("                DOO=$$$NDM                                            ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ\n");
+    printf("                 DO$$NO                                                                                           \n");
+    printf("                 NNDN                                                                                             \n");
+}
+// FIM DA FUNÇÃO MOSTRAR LIVRO
+
+
+// INICIO DA FUNÇÃO DE LISTAGEM DE LIVROS
+void lista()
+{
     char tecla;
     int i = 1;
 
@@ -101,6 +145,16 @@ void lista() {
     livro[3].aval = 8;
     livro[3].id = 3;
 
+    strcpy(livro[4].titulo, "Maria e Suas Peripecias");
+    strcpy(livro[4].autor, "Maria Sousa");
+    strcpy(livro[4].genero, "Kama Sutra");
+    strcpy(livro[4].editora, "Unip SP");
+    strcpy(livro[4].ISBN, "6969696969");
+    strcpy(livro[4].status, "Disponivel");
+    livro[4].edicao = 2;
+    livro[4].paginas = 6969;
+    livro[4].aval = 10;
+    livro[4].id = 4;
     /*
     printf("\nTitulo do Livro: %s\n", livro.titulo);
     printf("Nome do Autor : %s\n", livro.autor);
@@ -113,37 +167,7 @@ void lista() {
         system("cls");
         cabecalho();
         rodape();
-        gotoxy(1,8);
-        printf("                                            ~~~~~:D8                                                              \n");
-        printf("                                      ~~~~~~~~~~~~::D                 ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿\n");
-        printf("                                   ::~~~~~~~~~~~~~~::D                ³                                          ³\n");
-        printf("                                 ::::::::~~~~~~~~~~~::D               ³                                          ³\n");
-        printf("                                :::::::::::~~~~~~~~~:::D              ³                                          ³\n");
-        printf("                              ~::::::::::::::~~~~~~~~:::D             ³                                          ³\n");
-        printf("                     ,::::::~~~:::,,,,,,:::::::~~~~~:::::D            ³                                          ³\n");
-        printf("                  ,,,,:::::::~+~:,,....,,,::::::~~::::::::D           ³                                          ³\n");
-        printf("               ,,,,,,,,,::::::~~:,,......,,,::::::~~:::::::D          ³                                          ³\n");
-        printf("             ,,,,,,,,,,,,,:::::=~,,.......,,,::::::~~:::::,,D         ³                                          ³\n");
-        printf("           ,,,,,,,,,,,,,,,,::::~=:,,.......,,,::::::~~~::::,,D        ³                                          ³\n");
-        printf("        =,,,,,,,,,,,,,,,,,,,::::~=:,,.......,,,:::::::~~::::,.D       ³                                          ³\n");
-        printf("        ?=,,,,,,,,,,,,,,,,,,:::::~=,,,........,,:::::::~~:::::,D      ³                                          ³\n");
-        printf("       8O~=,,,,,,,,,,,,,,,,,::::::~=,,,........,,::::::::~~::::ID     ³                                          ³\n");
-        printf("       8OO~,,,,,,,,,,,,,,,,,:::::::~=,,,........,,,::::::::::,7O$N    ³                                          ³\n");
-        printf("        8O?=,,,,,...,,,,,,,,::::::::~:,,,.........,,,.?77Z$O7NDO      ³                                          ³\n");
-        printf("         DO++,,,,......,,,,,,::::::,:~:,,,....  ?IZ$$$$$$NDD          ³                                          ³\n");
-        printf("         DOO~~,,,,......,,,,,,::::::,:~:,,,..?O$$$O$$$DO              ³                                          ³\n");
-        printf("          8OO~,,,,.......,,,,,,::::::,:~:,,.8$$$$$ZDD                 ³                                          ³\n");
-        printf("           DO7=,,,........,,,,,,::::::,:~:,$Z$$$N8                    ³                                          ³\n");
-        printf("           DDO==,,,........,,,,,,::????I:~$$$$D                       ³                                          ³\n");
-        printf("            8OO=,,,.........,..???$$$ZZ$$NNMN                         ³                                          ³\n");
-        printf("             DO7=,,,.........??$$$$$$$$$$MD8                          ³                                          ³\n");
-        printf("             DDO?+,,.......I$ZO$$8$$NN   N                            ³                                          ³\n");
-        printf("              DOO+,,.....7Z$$$$$DO                                    ³                                          ³\n");
-        printf("               DOO+,....$$$$$NO                                       ³                                          ³\n");
-        printf("               NDO7+..$$$$ND                                          ³                                          ³\n");
-        printf("                DOO=$$$NDM                                            ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ\n");
-        printf("                 DO$$NO                                                                                           \n");
-        printf("                 NNDN                                                                                             \n");
+        mostralivro();
         textcolor(LIGHTCYAN);
         gotoxy(74,12);
         printf("Titulo:");
@@ -203,27 +227,34 @@ void lista() {
         if (tecla == DIREITA) {
             i++;
         }
-        else if (tecla == ESQUERDA) {
-            if (i > 1) {
-                i--;
+        else {
+            if (tecla == ESQUERDA) {
+                if (i > 1) {
+                    i--;
+                }
             }
-        }
-        else if (tecla == ESC) {
-            system("cls");
-            menu();
+            else {
+                if (tecla == ESC) {
+                    system("cls");
+                    menu();
+                }
+            }
         }
     }
 
 
 }
+// FIM DA FUNÇÃO DE LISTAGEM DE LIVROS
 
-void cadastrar() {
 
+// INICIO DA FUNÇÃO PARA CADASTRAR NOVO LIVRO
+void cadastrar()
+{
     system("cls");
     cabecalho();
     rodape();
 
-    char contador;  //contador
+    //char contador;  //contador
     char setas;  //variável usada para captura de tecla
 
     while (setas != ESC) {
@@ -258,8 +289,8 @@ void cadastrar() {
         printf("            ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ\n");
 
         gotoxy(25,15);
-        scanf("%s", &setas);
-
+        setas=getch();
+    /*
         contador=getch();
 
         if (contador==ENTER) {
@@ -272,7 +303,74 @@ void cadastrar() {
                 gotoxy(25,21);
                 scanf("%s", &contador);
             }
-        }
+
+    */
+    }
+
+    if (setas == ESC) {
+        system("cls");
+        menu();
+    }
+}
+// FIM DA FUNÇÃO CADASTRAR NOVO LIVRO
+
+void consulentes()
+{
+    system("cls");
+    cabecalho();
+    rodape();
+
+    //char contador;  //contador
+    char setas;  //variável usada para captura de tecla
+
+    while (setas != ESC) {
+        gotoxy(1,8);
+        printf("            ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿\n");
+        printf("            ³                                   CADASTRO DE NOVO LIVRO                                   ³\n");
+        printf("            ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ\n");
+        printf("\n            ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿\n");
+        printf("            ³                                                                                            ³\n");
+        printf("            ³                                                                                            ³\n");
+        printf("            ³   Titulo:                                                                                  ³\n");
+        printf("            ³                                                                                            ³\n");
+        printf("            ³                                                                                            ³\n");
+        printf("            ³   Autor:                                                                                   ³\n");
+        printf("            ³                                                                                            ³\n");
+        printf("            ³                                                                                            ³\n");
+        printf("            ³   Genero:                                                                                  ³\n");
+        printf("            ³                                                                                            ³\n");
+        printf("            ³                                                                                            ³\n");
+        printf("            ³   Editora:                                                                                 ³\n");
+        printf("            ³                                                                                            ³\n");
+        printf("            ³                                                                                            ³\n");
+        printf("            ³   Edicao:                                                                                  ³\n");
+        printf("            ³                                                                                            ³\n");
+        printf("            ³                                                                                            ³\n");
+        printf("            ³   Paginas:                                                                                 ³\n");
+        printf("            ³                                                                                            ³\n");
+        printf("            ³                                                                                            ³\n");
+        printf("            ³   ISBN:                                                                                    ³\n");
+        printf("            ³                                                                                            ³\n");
+        printf("            ³                                                                                            ³\n");
+        printf("            ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ\n");
+
+        gotoxy(25,15);
+        setas=getch();
+    /*
+        contador=getch();
+
+        if (contador==ENTER) {
+            gotoxy(24,18);
+            scanf("%s", &contador);
+
+            contador=getch();
+
+            if (contador==ENTER) {
+                gotoxy(25,21);
+                scanf("%s", &contador);
+            }
+
+    */
     }
 
     if (setas == ESC) {
@@ -281,6 +379,7 @@ void cadastrar() {
     }
 }
 
+// INICIO DA FUNÇÃO PARA SAIR DO PROGRAMA
 void sair()
 {
     system("cls");
@@ -302,44 +401,14 @@ void sair()
 
         switch (contador) {
             case(1):
-                gotoxy(1,8);
-                printf("                                            ~~~~~:D8                                                    \n");
-                printf("                                      ~~~~~~~~~~~~::D                 ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿\n");
-                printf("                                   ::~~~~~~~~~~~~~~::D                ³                                ³\n");
-                printf("                                 ::::::::~~~~~~~~~~~::D               ³                                ³\n");
-                printf("                                :::::::::::~~~~~~~~~:::D              ³                                ³\n");
-                printf("                              ~::::::::::::::~~~~~~~~:::D             ³                                ³\n");
-                printf("                     ,::::::~~~:::,,,,,,:::::::~~~~~:::::D            ³                                ³\n");
-                printf("                  ,,,,:::::::~+~:,,....,,,::::::~~::::::::D           ³                                ³\n");
-                printf("               ,,,,,,,,,::::::~~:,,......,,,::::::~~:::::::D          ³                                ³\n");
-                printf("             ,,,,,,,,,,,,,:::::=~,,.......,,,::::::~~:::::,,D         ³                                ³\n");
-                printf("           ,,,,,,,,,,,,,,,,::::~=:,,.......,,,::::::~~~::::,,D        ³                                ³\n");
-                printf("        =,,,,,,,,,,,,,,,,,,,::::~=:,,.......,,,:::::::~~::::,.D       ³                                ³\n");
-                printf("        ?=,,,,,,,,,,,,,,,,,,:::::~=,,,........,,:::::::~~:::::,D      ³                                ³\n");
-                printf("       8O~=,,,,,,,,,,,,,,,,,::::::~=,,,........,,::::::::~~::::ID     ³                                ³\n");
-                printf("       8OO~,,,,,,,,,,,,,,,,,:::::::~=,,,........,,,::::::::::,7O$N    ³                                ³\n");
-                printf("        8O?=,,,,,...,,,,,,,,::::::::~:,,,.........,,,.?77Z$O7NDO      ³                                ³\n");
-                printf("         DO++,,,,......,,,,,,::::::,:~:,,,....  ?IZ$$$$$$NDD          ³                                ³\n");
-                printf("         DOO~~,,,,......,,,,,,::::::,:~:,,,..?O$$$O$$$DO              ³                                ³\n");
-                printf("          8OO~,,,,.......,,,,,,::::::,:~:,,.8$$$$$ZDD                 ³                                ³\n");
-                printf("           DO7=,,,........,,,,,,::::::,:~:,$Z$$$N8                    ³                                ³\n");
-                printf("           DDO==,,,........,,,,,,::????I:~$$$$D                       ³                                ³\n");
-                printf("            8OO=,,,.........,..???$$$ZZ$$NNMN                         ³                                ³\n");
-                printf("             DO7=,,,.........??$$$$$$$$$$MD8                          ³                                ³\n");
-                printf("             DDO?+,,.......I$ZO$$8$$NN   N                            ³                                ³\n");
-                printf("              DOO+,,.....7Z$$$$$DO                                    ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ\n");
-                printf("               DOO+,....$$$$$NO                                                                         \n");
-                printf("               NDO7+..$$$$ND                                                                            \n");
-                printf("                DOO=$$$NDM                                                                              \n");
-                printf("                 DO$$NO                                                                                 \n");
-                printf("                 NNDN                                                                                   \n");
-                gotoxy(76,14);
+                mostralivro();
+                gotoxy(81,14);
                 printf("Deseja sair do sistema?");
                 textcolor(LIGHTGREEN);
-                gotoxy(83,20);
+                gotoxy(88,20);
                 printf("-> Sim");
                 textcolor(WHITE);
-                gotoxy(86,23);
+                gotoxy(91,23);
                 printf("Nao");
                 gotoxy(120,43);
                 setas=getch();
@@ -354,51 +423,20 @@ void sair()
                     contador++;
                 break;
             case(2):
-                gotoxy(1,8);
-                printf("                                            ~~~~~:D8                                                    \n");
-                printf("                                      ~~~~~~~~~~~~::D                 ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿\n");
-                printf("                                   ::~~~~~~~~~~~~~~::D                ³                                ³\n");
-                printf("                                 ::::::::~~~~~~~~~~~::D               ³                                ³\n");
-                printf("                                :::::::::::~~~~~~~~~:::D              ³                                ³\n");
-                printf("                              ~::::::::::::::~~~~~~~~:::D             ³                                ³\n");
-                printf("                     ,::::::~~~:::,,,,,,:::::::~~~~~:::::D            ³                                ³\n");
-                printf("                  ,,,,:::::::~+~:,,....,,,::::::~~::::::::D           ³                                ³\n");
-                printf("               ,,,,,,,,,::::::~~:,,......,,,::::::~~:::::::D          ³                                ³\n");
-                printf("             ,,,,,,,,,,,,,:::::=~,,.......,,,::::::~~:::::,,D         ³                                ³\n");
-                printf("           ,,,,,,,,,,,,,,,,::::~=:,,.......,,,::::::~~~::::,,D        ³                                ³\n");
-                printf("        =,,,,,,,,,,,,,,,,,,,::::~=:,,.......,,,:::::::~~::::,.D       ³                                ³\n");
-                printf("        ?=,,,,,,,,,,,,,,,,,,:::::~=,,,........,,:::::::~~:::::,D      ³                                ³\n");
-                printf("       8O~=,,,,,,,,,,,,,,,,,::::::~=,,,........,,::::::::~~::::ID     ³                                ³\n");
-                printf("       8OO~,,,,,,,,,,,,,,,,,:::::::~=,,,........,,,::::::::::,7O$N    ³                                ³\n");
-                printf("        8O?=,,,,,...,,,,,,,,::::::::~:,,,.........,,,.?77Z$O7NDO      ³                                ³\n");
-                printf("         DO++,,,,......,,,,,,::::::,:~:,,,....  ?IZ$$$$$$NDD          ³                                ³\n");
-                printf("         DOO~~,,,,......,,,,,,::::::,:~:,,,..?O$$$O$$$DO              ³                                ³\n");
-                printf("          8OO~,,,,.......,,,,,,::::::,:~:,,.8$$$$$ZDD                 ³                                ³\n");
-                printf("           DO7=,,,........,,,,,,::::::,:~:,$Z$$$N8                    ³                                ³\n");
-                printf("           DDO==,,,........,,,,,,::????I:~$$$$D                       ³                                ³\n");
-                printf("            8OO=,,,.........,..???$$$ZZ$$NNMN                         ³                                ³\n");
-                printf("             DO7=,,,.........??$$$$$$$$$$MD8                          ³                                ³\n");
-                printf("             DDO?+,,.......I$ZO$$8$$NN   N                            ³                                ³\n");
-                printf("              DOO+,,.....7Z$$$$$DO                                    ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ\n");
-                printf("               DOO+,....$$$$$NO                                                                         \n");
-                printf("               NDO7+..$$$$ND                                                                            \n");
-                printf("                DOO=$$$NDM                                                                              \n");
-                printf("                 DO$$NO                                                                                 \n");
-                printf("                 NNDN                                                                                   \n");
-                gotoxy(76,14);
+                mostralivro();
+                gotoxy(81,14);
                 printf("Deseja sair do sistema?");
-                gotoxy(86,20);
+                gotoxy(91,20);
                 printf("Sim");
                 textcolor(LIGHTGREEN);
-                gotoxy(83,23);
+                gotoxy(88,23);
                 printf("-> Nao");
                 textcolor(WHITE);
                 gotoxy(120,43);
                 setas=getch();
                 //caso cursor estiver na posição 2 (Nao) e tecla pressionada for ENTER, entrar na função 'menu()' novamente
                 if (setas==ENTER) {
-                    system("cls");
-                    return;
+                    menu();
                 }
                 // else/if para movimentação do cursor
                 else if (setas==ACIMA)
@@ -411,65 +449,47 @@ void sair()
     if (setas == ESC)
         menu();
 }
+// FIM DA FUNÇÃO SAIR DO PROGRAMA
 
 
+// INICIO DA FUNÇÃO PARA MOSTRAR O MENU INICIAL DO PROGRAMA
 void menu()
 {
     int contador=1;  //contador
     char setas;  //variável usada para captura de tecla
 
+
+    cabecalho();
+    rodape();
+
     while(setas != ESC){
-
-        cabecalho();
-        rodape();
-
         //se usuário estiver na primeira opção do menu e apertar seta para cima
-        //cursor vai para a última opção (4)
+        //cursor vai para a última opção (6)
         if (contador<1)
-            contador=4;
+            contador=6;
         //se usuário estiver na última opção do menu e apertar seta para baixo
         //cursor vai para a primeira opção (1)
-        else if (contador>4)
+        else if (contador>6)
             contador=1;
 
         switch (contador)
         {
             case(1):
-                gotoxy(1,8);
-                printf("                                            ~~~~~:D8                                                    \n");
-                printf("                                      ~~~~~~~~~~~~::D                 ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿\n");
-                printf("                                   ::~~~~~~~~~~~~~~::D                ³                                ³\n");
-                printf("                                 ::::::::~~~~~~~~~~~::D               ³                                ³\n");
-                printf("                                :::::::::::~~~~~~~~~:::D              ³                                ³\n");
-                printf("                              ~::::::::::::::~~~~~~~~:::D             ³                                ³\n");
-                printf("                     ,::::::~~~:::,,,,,,:::::::~~~~~:::::D            ³                                ³\n");
-                printf("                  ,,,,:::::::~+~:,,....,,,::::::~~::::::::D           ³     Autores                    ³\n");
-                printf("               ,,,,,,,,,::::::~~:,,......,,,::::::~~:::::::D          ³                                ³\n");
-                printf("             ,,,,,,,,,,,,,:::::=~,,.......,,,::::::~~:::::,,D         ³                                ³\n");
-                printf("           ,,,,,,,,,,,,,,,,::::~=:,,.......,,,::::::~~~::::,,D        ³     Cadastrar                  ³\n");
-                printf("        =,,,,,,,,,,,,,,,,,,,::::~=:,,.......,,,:::::::~~::::,.D       ³                                ³\n");
-                printf("        ?=,,,,,,,,,,,,,,,,,,:::::~=,,,........,,:::::::~~:::::,D      ³                                ³\n");
-                printf("       8O~=,,,,,,,,,,,,,,,,,::::::~=,,,........,,::::::::~~::::ID     ³     Sair                       ³\n");
-                printf("       8OO~,,,,,,,,,,,,,,,,,:::::::~=,,,........,,,::::::::::,7O$N    ³                                ³\n");
-                printf("        8O?=,,,,,...,,,,,,,,::::::::~:,,,.........,,,.?77Z$O7NDO      ³                                ³\n");
-                printf("         DO++,,,,......,,,,,,::::::,:~:,,,....  ?IZ$$$$$$NDD          ³                                ³\n");
-                printf("         DOO~~,,,,......,,,,,,::::::,:~:,,,..?O$$$O$$$DO              ³                                ³\n");
-                printf("          8OO~,,,,.......,,,,,,::::::,:~:,,.8$$$$$ZDD                 ³                                ³\n");
-                printf("           DO7=,,,........,,,,,,::::::,:~:,$Z$$$N8                    ³     Creditos                   ³\n");
-                printf("           DDO==,,,........,,,,,,::????I:~$$$$D                       ³                                ³\n");
-                printf("            8OO=,,,.........,..???$$$ZZ$$NNMN                         ³                                ³\n");
-                printf("             DO7=,,,.........??$$$$$$$$$$MD8                          ³                                ³\n");
-                printf("             DDO?+,,.......I$ZO$$8$$NN   N                            ³                                ³\n");
-                printf("              DOO+,,.....7Z$$$$$DO                                    ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ\n");
-                printf("               DOO+,....$$$$$NO                                                                         \n");
-                printf("               NDO7+..$$$$ND                                                                            \n");
-                printf("                DOO=$$$NDM                                                                              \n");
-                printf("                 DO$$NO                                                                                 \n");
-                printf("                 NNDN                                                                                   \n");
+                mostralivro();
                 textcolor(LIGHTGREEN);
-                gotoxy(77,12);
-                printf("Livros           <--");
+                gotoxy(76,12);
+                printf("Menu de Livros                 <--");
                 textcolor(WHITE);
+                gotoxy(76,15);
+                printf("Menu de Consulentes               ");
+                gotoxy(76,18);
+                printf("Menu Temporario                   ");
+                gotoxy(76,21);
+                printf("Menu Temporario                   ");
+                gotoxy(76,24);
+                printf("Menu Temporario                   ");
+                gotoxy(76,29);
+                printf("Sair                              ");
                 gotoxy(120,43);
                 setas=getch();
                 if (setas==ENTER) {
@@ -477,160 +497,162 @@ void menu()
                 }
                 // else/if para movimentação do cursor
                 else if (setas==ACIMA)
-                    contador=4;
+                    contador=6;
                 else if (setas==ABAIXO)
                     contador++;
                 break;
             case(2):
-                gotoxy(1,8);
-                printf("                                            ~~~~~:D8                                                    \n");
-                printf("                                      ~~~~~~~~~~~~::D                 ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿\n");
-                printf("                                   ::~~~~~~~~~~~~~~::D                ³                                ³\n");
-                printf("                                 ::::::::~~~~~~~~~~~::D               ³                                ³\n");
-                printf("                                :::::::::::~~~~~~~~~:::D              ³     Livros                     ³\n");
-                printf("                              ~::::::::::::::~~~~~~~~:::D             ³                                ³\n");
-                printf("                     ,::::::~~~:::,,,,,,:::::::~~~~~:::::D            ³                                ³\n");
-                printf("                  ,,,,:::::::~+~:,,....,,,::::::~~::::::::D           ³                                ³\n");
-                printf("               ,,,,,,,,,::::::~~:,,......,,,::::::~~:::::::D          ³                                ³\n");
-                printf("             ,,,,,,,,,,,,,:::::=~,,.......,,,::::::~~:::::,,D         ³                                ³\n");
-                printf("           ,,,,,,,,,,,,,,,,::::~=:,,.......,,,::::::~~~::::,,D        ³     Cadastrar                  ³\n");
-                printf("        =,,,,,,,,,,,,,,,,,,,::::~=:,,.......,,,:::::::~~::::,.D       ³                                ³\n");
-                printf("        ?=,,,,,,,,,,,,,,,,,,:::::~=,,,........,,:::::::~~:::::,D      ³                                ³\n");
-                printf("       8O~=,,,,,,,,,,,,,,,,,::::::~=,,,........,,::::::::~~::::ID     ³     Sair                       ³\n");
-                printf("       8OO~,,,,,,,,,,,,,,,,,:::::::~=,,,........,,,::::::::::,7O$N    ³                                ³\n");
-                printf("        8O?=,,,,,...,,,,,,,,::::::::~:,,,.........,,,.?77Z$O7NDO      ³                                ³\n");
-                printf("         DO++,,,,......,,,,,,::::::,:~:,,,....  ?IZ$$$$$$NDD          ³                                ³\n");
-                printf("         DOO~~,,,,......,,,,,,::::::,:~:,,,..?O$$$O$$$DO              ³                                ³\n");
-                printf("          8OO~,,,,.......,,,,,,::::::,:~:,,.8$$$$$ZDD                 ³                                ³\n");
-                printf("           DO7=,,,........,,,,,,::::::,:~:,$Z$$$N8                    ³     Creditos                   ³\n");
-                printf("           DDO==,,,........,,,,,,::????I:~$$$$D                       ³                                ³\n");
-                printf("            8OO=,,,.........,..???$$$ZZ$$NNMN                         ³                                ³\n");
-                printf("             DO7=,,,.........??$$$$$$$$$$MD8                          ³                                ³\n");
-                printf("             DDO?+,,.......I$ZO$$8$$NN   N                            ³                                ³\n");
-                printf("              DOO+,,.....7Z$$$$$DO                                    ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ\n");
-                printf("               DOO+,....$$$$$NO                                       \n");
-                printf("               NDO7+..$$$$ND                                          \n");
-                printf("                DOO=$$$NDM                                            \n");
-                printf("                 DO$$NO                                               \n");
-                printf("                 NNDN                                                 \n");
-                textcolor(LIGHTGREEN);
-                gotoxy(77,15);
-                printf("Autores          <--");
                 textcolor(WHITE);
-                gotoxy(120,43);
-            setas=getch();
-            //caso cursor estiver na posição (2) e tecla pressionada for ENTER, entrar na função 'regras()'
-            if (setas==ENTER){
-                system("cls");
-                //regras();
-                gotoxy(120,43);
-                getch();
-            }
-            // else/if para movimentação do cursor
-            else if (setas==ACIMA)
-                contador--;
-            else if (setas==ABAIXO)
-                contador++;
-            break;
-        case(3):
-                gotoxy(1,8);
-                printf("                                            ~~~~~:D8                                                    \n");
-                printf("                                      ~~~~~~~~~~~~::D                 ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿\n");
-                printf("                                   ::~~~~~~~~~~~~~~::D                ³                                ³\n");
-                printf("                                 ::::::::~~~~~~~~~~~::D               ³                                ³\n");
-                printf("                                :::::::::::~~~~~~~~~:::D              ³     Livros                     ³\n");
-                printf("                              ~::::::::::::::~~~~~~~~:::D             ³                                ³\n");
-                printf("                     ,::::::~~~:::,,,,,,:::::::~~~~~:::::D            ³                                ³\n");
-                printf("                  ,,,,:::::::~+~:,,....,,,::::::~~::::::::D           ³     Autores                    ³\n");
-                printf("               ,,,,,,,,,::::::~~:,,......,,,::::::~~:::::::D          ³                                ³\n");
-                printf("             ,,,,,,,,,,,,,:::::=~,,.......,,,::::::~~:::::,,D         ³                                ³\n");
-                printf("           ,,,,,,,,,,,,,,,,::::~=:,,.......,,,::::::~~~::::,,D        ³                                ³\n");
-                printf("        =,,,,,,,,,,,,,,,,,,,::::~=:,,.......,,,:::::::~~::::,.D       ³                                ³\n");
-                printf("        ?=,,,,,,,,,,,,,,,,,,:::::~=,,,........,,:::::::~~:::::,D      ³                                ³\n");
-                printf("       8O~=,,,,,,,,,,,,,,,,,::::::~=,,,........,,::::::::~~::::ID     ³     Sair                       ³\n");
-                printf("       8OO~,,,,,,,,,,,,,,,,,:::::::~=,,,........,,,::::::::::,7O$N    ³                                ³\n");
-                printf("        8O?=,,,,,...,,,,,,,,::::::::~:,,,.........,,,.?77Z$O7NDO      ³                                ³\n");
-                printf("         DO++,,,,......,,,,,,::::::,:~:,,,....  ?IZ$$$$$$NDD          ³                                ³\n");
-                printf("         DOO~~,,,,......,,,,,,::::::,:~:,,,..?O$$$O$$$DO              ³                                ³\n");
-                printf("          8OO~,,,,.......,,,,,,::::::,:~:,,.8$$$$$ZDD                 ³                                ³\n");
-                printf("           DO7=,,,........,,,,,,::::::,:~:,$Z$$$N8                    ³     Creditos                   ³\n");
-                printf("           DDO==,,,........,,,,,,::????I:~$$$$D                       ³                                ³\n");
-                printf("            8OO=,,,.........,..???$$$ZZ$$NNMN                         ³                                ³\n");
-                printf("             DO7=,,,.........??$$$$$$$$$$MD8                          ³                                ³\n");
-                printf("             DDO?+,,.......I$ZO$$8$$NN   N                            ³                                ³\n");
-                printf("              DOO+,,.....7Z$$$$$DO                                    ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ\n");
-                printf("               DOO+,....$$$$$NO                                       \n");
-                printf("               NDO7+..$$$$ND                                          \n");
-                printf("                DOO=$$$NDM                                            \n");
-                printf("                 DO$$NO                                               \n");
-                printf("                 NNDN                                                 \n");
+                gotoxy(76,12);
+                printf("Menu de Livros                    ");
+                gotoxy(76,15);
                 textcolor(LIGHTGREEN);
-                gotoxy(77,18);
-                printf("Cadastrar        <--");
+                printf("Menu de Consulentes            <--");
+                textcolor(WHITE);
+                gotoxy(76,18);
+                printf("Menu Temporario                   ");
+                gotoxy(76,21);
+                printf("Menu Temporario                   ");
+                gotoxy(76,24);
+                printf("Menu Temporario                   ");
+                gotoxy(76,29);
+                printf("Sair                              ");
+                gotoxy(120,43);
+                setas=getch();
+                //caso cursor estiver na posição (2) e tecla pressionada for ENTER, entrar na função 'regras()'
+                if (setas==ENTER){
+                    system("cls");
+                    consulentes();
+                    gotoxy(120,43);
+                    getch();
+                }
+                // else/if para movimentação do cursor
+                else if (setas==ACIMA)
+                    contador--;
+                else if (setas==ABAIXO)
+                    contador++;
+                break;
+            case(3):
+                textcolor(WHITE);
+                gotoxy(76,12);
+                printf("Menu de Livros                    ");
+                gotoxy(76,15);
+                printf("Menu de Consulentes               ");
+                gotoxy(76,18);
+                textcolor(LIGHTGREEN);
+                printf("Menu Temporario                <--");
+                textcolor(WHITE);
+                gotoxy(76,21);
+                printf("Menu Temporario                   ");
+                gotoxy(76,24);
+                printf("Menu Temporario                   ");
+                gotoxy(76,29);
+                printf("Sair                              ");
+                gotoxy(120,43);
+                setas=getch();
+                //caso cursor estiver na posição (3) e tecla pressionada for ENTER, entrar na função 'creditos()'
+                if (setas==ENTER){
+                    system("cls");
+                    cadastrar();
+                    gotoxy(120,43);
+                    getch();
+                }
+                // else/if para movimentação do cursor
+                else if (setas==ACIMA)
+                    contador--;
+                else if (setas==ABAIXO)
+                    contador++;
+                break;
+            case(4):
+                textcolor(WHITE);
+                gotoxy(76,12);
+                printf("Menu de Livros                    ");
+                gotoxy(76,15);
+                printf("Menu de Consulentes               ");
+                gotoxy(76,18);
+                printf("Menu Temporario                   ");
+                gotoxy(76,21);
+                textcolor(LIGHTGREEN);
+                printf("Menu Temporario                <--");
+                textcolor(WHITE);
+                gotoxy(76,24);
+                printf("Menu Temporario                   ");
+                gotoxy(76,29);
+                printf("Sair                              ");
+                gotoxy(120,43);
+                setas=getch();
+                //caso cursor estiver na posição (3) e tecla pressionada for ENTER, entrar na função 'creditos()'
+                if (setas==ENTER){
+                    system("cls");
+                    cadastrar();
+                    gotoxy(120,43);
+                    getch();
+                }
+                // else/if para movimentação do cursor
+                else if (setas==ACIMA)
+                    contador--;
+                else if (setas==ABAIXO)
+                    contador++;
+                break;
+            case(5):
+                textcolor(WHITE);
+                gotoxy(76,12);
+                printf("Menu de Livros                    ");
+                gotoxy(76,15);
+                printf("Menu de Consulentes               ");
+                gotoxy(76,18);
+                printf("Menu Temporario                   ");
+                gotoxy(76,21);
+                printf("Menu Temporario                   ");
+                gotoxy(76,24);
+                textcolor(LIGHTGREEN);
+                printf("Menu Temporario                <--");
+                textcolor(WHITE);
+                gotoxy(76,29);
+                printf("Sair                              ");
+                gotoxy(120,43);
+                setas=getch();
+                //caso cursor estiver na posição (3) e tecla pressionada for ENTER, entrar na função 'creditos()'
+                if (setas==ENTER){
+                    system("cls");
+                    cadastrar();
+                    gotoxy(120,43);
+                    getch();
+                }
+                // else/if para movimentação do cursor
+                else if (setas==ACIMA)
+                    contador--;
+                else if (setas==ABAIXO)
+                    contador++;
+                break;
+            case(6):
+                textcolor(WHITE);
+                gotoxy(76,12);
+                printf("Menu de Livros                    ");
+                gotoxy(76,15);
+                printf("Menu de Consulentes               ");
+                gotoxy(76,18);
+                printf("Menu Temporario                   ");
+                gotoxy(76,21);
+                printf("Menu Temporario                   ");
+                gotoxy(76,24);
+                printf("Menu Temporario                   ");
+                gotoxy(76,29);
+                textcolor(LIGHTGREEN);
+                printf("Sair                           <--");
                 textcolor(WHITE);
                 gotoxy(120,43);
                 setas=getch();
-            //caso cursor estiver na posição (3) e tecla pressionada for ENTER, entrar na função 'creditos()'
-            if (setas==ENTER){
-                system("cls");
-                cadastrar();
-                gotoxy(120,43);
-                getch();
-            }
-            // else/if para movimentação do cursor
-            else if (setas==ACIMA)
-                contador--;
-            else if (setas==ABAIXO)
-                contador++;
-            break;
-        case(4):
-                gotoxy(1,8);
-                printf("                                            ~~~~~:D8                                                    \n");
-                printf("                                      ~~~~~~~~~~~~::D                 ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿\n");
-                printf("                                   ::~~~~~~~~~~~~~~::D                ³                                ³\n");
-                printf("                                 ::::::::~~~~~~~~~~~::D               ³                                ³\n");
-                printf("                                :::::::::::~~~~~~~~~:::D              ³     Livros                     ³\n");
-                printf("                              ~::::::::::::::~~~~~~~~:::D             ³                                ³\n");
-                printf("                     ,::::::~~~:::,,,,,,:::::::~~~~~:::::D            ³                                ³\n");
-                printf("                  ,,,,:::::::~+~:,,....,,,::::::~~::::::::D           ³     Autores                    ³\n");
-                printf("               ,,,,,,,,,::::::~~:,,......,,,::::::~~:::::::D          ³                                ³\n");
-                printf("             ,,,,,,,,,,,,,:::::=~,,.......,,,::::::~~:::::,,D         ³                                ³\n");
-                printf("           ,,,,,,,,,,,,,,,,::::~=:,,.......,,,::::::~~~::::,,D        ³     Cadastrar                  ³\n");
-                printf("        =,,,,,,,,,,,,,,,,,,,::::~=:,,.......,,,:::::::~~::::,.D       ³                                ³\n");
-                printf("        ?=,,,,,,,,,,,,,,,,,,:::::~=,,,........,,:::::::~~:::::,D      ³                                ³\n");
-                printf("       8O~=,,,,,,,,,,,,,,,,,::::::~=,,,........,,::::::::~~::::ID     ³                                ³\n");
-                printf("       8OO~,,,,,,,,,,,,,,,,,:::::::~=,,,........,,,::::::::::,7O$N    ³                                ³\n");
-                printf("        8O?=,,,,,...,,,,,,,,::::::::~:,,,.........,,,.?77Z$O7NDO      ³                                ³\n");
-                printf("         DO++,,,,......,,,,,,::::::,:~:,,,....  ?IZ$$$$$$NDD          ³                                ³\n");
-                printf("         DOO~~,,,,......,,,,,,::::::,:~:,,,..?O$$$O$$$DO              ³                                ³\n");
-                printf("          8OO~,,,,.......,,,,,,::::::,:~:,,.8$$$$$ZDD                 ³                                ³\n");
-                printf("           DO7=,,,........,,,,,,::::::,:~:,$Z$$$N8                    ³     Creditos                   ³\n");
-                printf("           DDO==,,,........,,,,,,::????I:~$$$$D                       ³                                ³\n");
-                printf("            8OO=,,,.........,..???$$$ZZ$$NNMN                         ³                                ³\n");
-                printf("             DO7=,,,.........??$$$$$$$$$$MD8                          ³                                ³\n");
-                printf("             DDO?+,,.......I$ZO$$8$$NN   N                            ³                                ³\n");
-                printf("              DOO+,,.....7Z$$$$$DO                                    ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ\n");
-                printf("               DOO+,....$$$$$NO                                       \n");
-                printf("               NDO7+..$$$$ND                                          \n");
-                printf("                DOO=$$$NDM                                            \n");
-                printf("                 DO$$NO                                               \n");
-                printf("                 NNDN                                                 \n");
-                textcolor(LIGHTGREEN);
-                gotoxy(77,21);
-                printf("Sair             <--");
-                textcolor(WHITE);
-                gotoxy(120,43);
-                setas=getch();
-            //caso cursor estiver na posição (4) e tecla pressionada for ENTER, entrar na função 'sair()'
-            if (setas==ENTER){
-                sair();
-            }
-            // else/if para movimentação do cursor
-            else if (setas==ACIMA)
-                contador--;
-            else if (setas==ABAIXO)
-                contador=1;
-            break;
+                //caso cursor estiver na posição (4) e tecla pressionada for ENTER, entrar na função 'sair()'
+                if (setas==ENTER){
+                    sair();
+                }
+                // else/if para movimentação do cursor
+                else if (setas==ACIMA)
+                    contador--;
+                else if (setas==ABAIXO)
+                    contador=1;
+                break;
         }
 
         //se tecla ESC for pressionada, chamar função 'sair()', finalizando o programa
@@ -638,12 +660,14 @@ void menu()
             sair();
     }
 }
-            // ** FIM DA FUNÇÃO MENU **
+// FIM DA FUNÇÃO MENU
 
-
+// INICIO DO PROGRAMA
 int main()
 {
     system("cmd /c \"mode con: cols=120 lines=44\"");
     menu();
     return 0;
 }
+// FIM DO PROGRAMA
+
