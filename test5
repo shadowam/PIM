@@ -1,0 +1,210 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <conio2.h>
+
+struct emp
+{
+    char nome[40];
+    int paginas;
+    float valor;
+};
+
+
+int contagem(FILE *fp);
+
+int main()
+{
+    FILE *fp, *ft;
+
+    //teste
+    int x = 3;
+    //
+
+    char addOutro;
+    int escolha, recNum=0, seekOK=0;
+    struct emp e;
+    char livronome[40],umaLinha[128];
+    long int recsize;
+    fp = fopen("bancolivros.txt", "r");
+    if(fp == NULL)
+    {
+        fp=fopen("bancolivros.txt", "wt");
+        if(fp==NULL) {
+        puts("Nao foi possivel abrir o arquivo!");
+        exit(1);
+        }
+    }
+    else
+    {
+        recNum = contagem(fp);
+    }
+    fclose(fp);
+    printf("%d registros\n",recNum);
+    fp=fopen("bancolivros.txt", "r+w");
+
+    do
+    {
+        clrscr();
+        gotoxy(25, 10);
+        printf("1. Adicionar livros\n\n\t\t\t");
+        printf("2. Listar Livros\n\n\t\t\t");
+        printf("3. Modificar Livros\n\n\t\t\t");
+        printf("4. Deletar Livros\n\n\t\t\t");
+        printf("5. Sair\n\n\t\t\t");
+        printf("Sua escolha\n\n\t\t\t");
+        printf(" \b");
+        escolha = getchar();
+        getchar();
+        //while(getchar()!='\n'); //removes the extra newline left by the previous getchar(),
+        //from the input stream
+        switch(escolha)
+        {
+            case '1' :
+                addOutro = 'S';
+                seekOK=fseek(fp, 0L, SEEK_END);
+                if(seekOK)
+                {
+                    printf("Erro ao pesquisar arquivo, pressione ENTER para continuar\n");
+                    getchar();
+                }
+
+                do
+                {
+                    printf("\nDigite o nome, numero de paginas e valor, separados por espaco.\n\n");
+                    scanf("%s %d %f", e.nome, &e.paginas, &e.valor);
+                    fprintf(fp,"%s %d %.2f\n",e.nome,e.paginas,e.valor);
+                    printf("\nDeseja adicionar outro livro?(S/N) ");
+                    fflush(stdin);
+                    addOutro = getchar();
+                    getchar(); //removes the '\n' from the previous getchar()
+                } while(addOutro == 'S')
+                break;
+            case '2':
+                clrscr();
+                rewind(fp);
+                putchar('\n');
+
+                while((fgets(umaLinha, 128-1, fp)) != NULL)
+                {
+                    gotoxy(30, x);
+                    printf("%s",umaLinha);
+                    x = x+2;
+                }
+
+                //deixa possivel mostrar uma pagina com os dados salvos, antes de
+                //retornar ao menu, porém não para após uma página.
+                gotoxy(25,20);
+                textcolor(LIGHTCYAN);
+                printf("Pressione qualquer tecla para continuar\n");
+                textcolor(WHITE);
+                getch();
+                break;
+
+            case '3':
+                addOutro = 'S';
+                while(addOutro == 'S')
+                {
+                    printf("\nEntre com o nome do livro que deseja modificar: ");
+                    scanf("%s", livronome);
+                    rewind(fp);
+
+                    gotoxy(8,5);
+
+
+                    printf("TESTE 1");
+
+                    if(strcmp(e.nome, livronome) == 0)
+                    {
+                        gotoxy(10,10);
+                        printf("FALHEI...");
+                        printf("\nEntre com o novo nome, numero de paginas e valor");
+                        scanf("%s %d %f", e.nome, &e.paginas, &e.valor);
+                        //fseek(fp, - recsize, SEEK_CUR);
+                        //fwrite(&e, recsize, 1, fp);
+                        break;
+                    }
+                    else
+                        gotoxy(25,25);
+                        printf("FALHEI!");
+
+                    /*
+                    while(fread(&e, recsize, 1, fp) == 1)
+                    {
+                        printf("TESTE 1");
+                        if(strcmp(e.nome, livronome) == 0)
+                        {
+                            gotoxy(10,10);
+                            printf("FALHEI...");
+                            printf("\nEntre com o novo nome, numero de paginas e valor");
+                            scanf("%s %d %f", e.nome, &e.paginas, &e.valor);
+                            //fseek(fp, - recsize, SEEK_CUR);
+                            //fwrite(&e, recsize, 1, fp);
+                            break;
+                        }
+                        else
+                        printf("FALHEI!");
+                    }
+
+                    */
+
+                    do
+                    {
+                        clrscr();
+                        gotoxy(10,10);
+                        printf("\nDeseja modificar outro livro (S/N)? ");
+                        fflush(stdin);
+                        addOutro = getche();
+                    } while(addOutro != 'S' && addOutro != 'N' && addOutro != 's' && addOutro != 'n');
+                }
+                break;
+/*            case '4' :
+
+                addOutro = 'S';
+                while(addOutro == 'S')
+                {
+                    printf("\nInsira o nome do livro que deseja deletar: ");
+                    scanf("%s", livronome);
+                    ft = fopen("TEMP.DAT", "wb");
+                    rewind(fp);
+                    while(fread(&e, recsize, 1, fp) == 1)
+                    {
+                        if(strcmp(e.nome, livronome) != 0)
+                            fwrite(&e, recsize, 1, ft);
+                    }
+                    fclose(fp);
+                    fclose(ft);
+                    remove("EMP.DAT");
+                    rename("bancolivros.txt", "EMP.DAT");
+                    fp = fopen("EMP.DAT", "rb+");
+                    printf("Deseja deletar outro livro? (S/N): ");
+                    //fflush(stdin);
+                    addOutro = getche();
+                }
+
+            break;
+*/
+            case '5':
+                break;
+
+            default:
+                printf("\nPor favor, escolha um dos numeros do menu (pressione qualquer tecla para continuar.)\n");
+                getch();
+
+        } // FIM DO SWITCH
+    } while(escolha!='5');
+    fclose(fp);
+
+
+    return 0;
+}
+int contagem(FILE *fp) {
+    int i=0;
+
+    char umaLinha[128];
+    while((fgets(umaLinha, 128, fp)) != NULL) {
+        ++i;
+    }
+
+    return i;
+}
