@@ -1,0 +1,248 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <conio2.h>
+
+typedef struct livros
+{
+    char livro_nome[100];
+    char livro_autor[100];
+    char livro_genero[100];
+    char livro_editora[100];
+    char livro_status[20]; //Novo livro, portanto está disponível
+    int livro_isbn;
+    int livro_edicao;
+    int livro_paginas;
+    float livro_aval;
+} registro;
+
+registro novoLivro();
+void add_livro();
+void mostra_livro();
+
+int main(void)
+{
+    /*char livro_nome[100];
+    char livro_autor[100];
+    char livro_genero[100];
+    char livro_editora[100];
+    char livro_status[] = "Disponivel\n"; //Novo livro, portanto está disponível
+    int livro_isbn;
+    int livro_edicao;
+    int livro_paginas;
+    float livro_aval; */
+    //int livro_id;
+
+	int ch; //variável de controle
+    int escolha;
+        /*
+    FILE *arq; //declaração do ponteiro de arquivo
+
+    arq = fopen("poema.txt", "a"); //abrindo (ou criando) o arquivo notas.txt em modo append
+    if(arq == NULL)
+        printf("Erro, nao foi possivel abrir o arquivo\n");
+    else
+    {
+
+        printf("\nADICIONAR NOVO LIVRO\n");
+        do
+        {
+            printf("\nDigite o nome do livro: ");
+            fgets(livro_nome, sizeof(livro_nome), stdin);
+
+            printf("\nDigite o nome do autor: ");
+            fgets(livro_autor, sizeof(livro_autor), stdin);
+
+            printf("\nDigite o genero do livro: ");
+            fgets(livro_genero, sizeof(livro_genero), stdin);
+
+            printf("\nDigite o editora do livro: ");
+            fgets(livro_editora, sizeof(livro_editora), stdin);
+
+            printf("\nDigite a edicao do livro: ");
+            scanf("%d", &livro_edicao);
+
+            printf("\nDigite o numero de paginas: ");
+            scanf("%d", &livro_paginas);
+
+            printf("\nDigite a nota dos criticos: ");
+            scanf("%f", &livro_aval);
+
+            printf("\nDigite o ISBN do livro: ");
+            scanf("%d", &livro_isbn);
+
+//          fprintf(arq, "Disponivel\n\n"); //Livro está sempre disponível ao ser incluído no sistema
+
+
+            fwrite(livro_nome, 1, strlen(livro_nome), arq);
+            fwrite(livro_autor, 1, strlen(livro_autor), arq);
+            fwrite(livro_status, 1, strlen(livro_status), arq);
+
+
+            fprintf(arq, "%d\n", livro_isbn);
+            */
+
+            printf("\n\nADMIN MENU:\n\n");
+            printf("\n1 -  Adicionar livro\n");
+            printf("\n2 -  Display all entries\n");
+            printf("\n3 -  Modify student registro\n");
+            printf("\n4 -  Delete student registro\n");
+            printf("\n5 -  Search student based on student number\n");
+            printf("\n6 -  Delete all entries\n");
+            printf("\n7 -  Log-out and Exit\n");
+            printf("\nEnter Choice: ");
+            scanf("%d", &escolha);
+
+
+            switch(escolha)
+            {
+            case(1):
+                add_livro();
+                break;
+            case(2):
+                mostra_livro();
+                break;
+            default:
+                printf("Saindo do programa...");
+                exit(0);
+            }
+
+    /*
+        do
+        {
+            add_livro();
+
+            printf("\nLivro adicionado com sucesso!");
+
+            printf("\nDeseja adicionar outro livro (Digite S caso Sim, qualquer outra tecla para sair: ");
+            ch = getch();
+
+        } while(ch == 's' && ch == 'S');
+
+        while((ch=fgetc(arq))!= EOF)
+            putchar(ch);
+*/
+       // fclose(arq);
+    //}
+
+/*    arq = fopen("poema.txt", "r");
+    printf("\n\n");
+    while((ch=fgetc(arq)) != EOF)
+		putchar(ch);
+    fclose(arq);
+*/
+    getch();
+
+    return 0;
+}
+
+void mostra_livro()
+{
+    FILE* arq;
+    registro book[10];
+    int books;
+    int i;
+    int j;
+
+    clrscr();
+    if((arq=fopen("poema.txt", "r+b")) == NULL)
+        printf("\n\nAn unknown error occurred. Please try again.");
+    else
+    {
+        printf("STUDENT#\t%-16s%-16s%-12s%-12s%-12s\n\n","LAST NAME","FIRST NAME","MI","BDAY", "COURSE  ");
+        for(i=0; i < 10; i++)
+        {
+            while((books=fread(&book[i], sizeof(registro), 5, arq))!=0 )
+            {
+                for(j=0; j<books; j++)
+                {
+                    printf("%-16s", book[j].livro_nome);
+                    printf("%-16s", book[j].livro_autor);
+                    printf("%-12s\n", book[j].livro_genero);
+                }
+                getch();
+            }
+        }
+        printf("\n\nPlease press any key to go back to menu.");
+        getch();
+        fclose(arq);
+    }
+}
+
+void add_livro()
+{
+    FILE* arq;
+    registro book[10];
+    int i = 0;
+    int slot = 2;
+    char choice = 'y';
+
+    if((arq=fopen("poema.txt", "a+b")) == NULL)
+        printf("\n\nAn unknown error occurred. Please try again.");
+    else
+    {
+        while(choice == 'y')
+        {
+            /*for(i = 0; i < 100; i++)
+            {
+                if(book[i].snum == 0)
+                {
+                    slot = i;
+                    break;
+                }
+            }*/
+            clrscr();
+
+
+            book[slot] = novoLivro();
+
+            fwrite(&book[slot], sizeof(registro), 1, arq);
+
+            printf("\n\nRecord successfully added!");
+            fclose(arq);
+
+            printf("\n\nEnter another account (press 'y' if yes): ");
+            choice = getch();
+        }
+    }
+}
+
+
+registro novoLivro()
+{
+    registro book;
+
+    fflush(stdin);
+    printf("\n\nADICIONAR NOVO LIVRO\n");
+    printf("\n\nInsira o nome do livro: ");
+    //fgets(book.livro_nome, sizeof(book.livro_nome), stdin);
+    //fprintf(arq, book.livro_nome);
+    scanf("%s", &book.livro_nome);
+
+    printf("\n\nInsira o nome do autor: ");
+    //fgets(book.livro_autor, sizeof(book.livro_autor), stdin);
+    //fprintf(arq, book.livro_autor);
+    scanf("%s", &book.livro_autor);
+
+    printf("\n\nInsira o genero do livro: ");
+    //fgets(book.livro_genero, sizeof(book.livro_genero), stdin);
+    scanf("%s", &book.livro_genero);
+
+/*
+    scanf("%s", &stud.lname);
+    printf("\n\nEnter first name: ");
+    fflush(stdin);
+    scanf("%s", &stud.fname);
+    printf("\n\nEnter middle initial: ");
+    fflush(stdin);
+    scanf("%s", &stud.mi);
+    printf("\n\nEnter birthdate (MMDDYY): ");
+    fflush(stdin);
+    scanf("%s", &stud.bday);
+    printf("\n\nEnter course (ex. BSM): ");
+    fflush(stdin);
+    scanf("%s", &stud.course);
+*/
+    return book;
+}
+
