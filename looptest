@@ -1,0 +1,131 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <conio2.h>
+
+int IDcont=0;
+
+typedef struct livros
+{
+    char nome[100];
+    char genero[100];
+    int ID;
+} registro;
+
+//registro novoLivro();
+void add_livro();
+void mostra_livro();
+
+int main()
+{
+	int ch, escolha;
+
+    clrscr();
+    printf("\n1 -  Adicionar livro\n");
+    printf("\n2 -  Display all entries\n");
+    printf("\nEnter Choice: ");
+    scanf("%d", &escolha);
+
+    switch(escolha)
+    {
+    case(1):
+        add_livro();
+        break;
+    case(2):
+        mostra_livro();
+        break;
+    default:
+        printf("Saindo do programa...");
+        //exit(0);
+    }
+
+    getch();
+
+    return 0;
+}
+
+void add_livro()
+{
+    FILE* arq;
+    registro book[100];
+    int i = IDcont+1;
+    int slot;
+    char choice;
+
+    if((arq=fopen("teste.txt", "a")) == NULL)
+        printf("\n\nErro ao abrir arquivo, por favor tente novamente.");
+    else
+    {
+        do
+        {
+            clrscr();
+
+            printf("\nInforme o nome: ");
+            scanf("%s", &book[i].nome);
+            printf("\nInforme o genero: ");
+            scanf("%s", &book[i].genero);
+
+            book[i].ID = i;
+
+            fprintf(arq, "%d\n%s\n%s\n\n", book[i].ID, book[i].nome, book[i].genero);
+
+            printf("\n\nLivro adicionado com sucesso!");
+
+            printf("\n\nDeseja adicionar outro livro (pressione 'S' caso sim): ");
+            choice = getch();
+
+        } while(choice == 'y');
+
+        fclose(arq);
+
+        return main();
+    }
+}
+
+void mostra_livro()
+{
+    FILE* arq;
+    registro book[10];
+    int books;
+    int i=1;
+    int j;
+    char teste1[100], teste2[100], teste3[100];
+
+    clrscr();
+    if((arq=fopen("teste.txt", "r")) == NULL)
+        printf("\n\nO arquivo nao pode ser aberto.");
+    else
+    {
+        while (fscanf(arq, "%d\n%s\n%s\n\n", &book[i].ID, book[i].nome, book[i].genero) != EOF)
+        {
+            printf("ID: %d / tamanho: %d", book[i].ID, strlen(teste1));
+            printf("\nNome: %s / tamanho: %d", book[i].nome, strlen(book[i].nome));
+            printf("\nGenero: %s / tamanho %d\n\n", book[i].genero), strlen(book[i].genero);
+            IDcont++;
+        }
+
+        fclose(arq);
+
+        printf("\n\nPressione qualquer tecla para voltar ao menu.");
+        getch();
+        return main();
+    }
+}
+
+registro novoLivro()
+{
+    registro book;
+
+    fflush(stdin);
+    printf("\n\nADICIONAR NOVO LIVRO\n");
+    printf("\n\nInsira o nome do livro: ");
+    //fgets(book.nome, sizeof(book.nome), stdin);
+    //fprintf(arq, book.nome);
+    scanf("%s", &book.nome);
+
+    printf("\n\nInsira o genero do livro: ");
+    //fgets(book.genero, sizeof(book.genero), stdin);
+    scanf("%s", &book.genero);
+
+    return book;
+}
