@@ -3,6 +3,14 @@
 #include <string.h>
 #include <conio2.h>
 
+#define ACIMA 72
+#define ABAIXO 80
+#define ESQUERDA 75
+#define DIREITA 77
+#define ESC 27
+#define ENTER 13
+#define BACKSPACE 8
+
 int IDcont=1; // var global usada para manter a sequência de ID dos livros
 
 typedef struct registro // estrutura com os dados de cada livro
@@ -20,37 +28,47 @@ void load_dados();
 // FUNÇÃO PRINCIPAL DO PROGRAMA
 int main()
 {
-	int escolha;
-
     load_dados(); // Inicia a função load_dados ao abrir o programa
                   // para que o contador de ID (IDcont) tome a posição correta
+	char escolha;
 
-    clrscr(); // Limpa a tela
-
-    // MENU BÁSICO
-    printf("\n1 -  Adicionar livro\n");
-    printf("\n2 -  Mostrar todos os livros\n");
-    printf("\nEntre com a opcao desejada: ");
-    scanf("%d", &escolha);
-    // FIM MENU
-
-    // Switch com as opções do menu
-    switch(escolha)
+    while (escolha != ESC)
     {
-    case(1): // Digitando 1 inicia a função add_livro
-        add_livro();
-        break;
-    case(2):
-        mostra_livro(); // Digitando 2 inicia a função mostra_livro()
-        break;
-    default: // ualquer outra tecla, sai do programa
-        printf("\n\nSaindo do programa...\n");
-        break;
+        // MENU BÁSICO
+        printf("\n1 -  Adicionar livro\n");
+        printf("\n2 -  Mostrar todos os livros\n");
+        printf("\n3 -  Alterar livro\n");
+        printf("\nEntre com a opcao desejada: ");
+        escolha = getch();
+        // FIM MENU
+
+        // Switch com as opções do menu
+        switch(escolha)
+        {
+        case('1'): // Digitando 1 inicia a função add_livro
+            add_livro();
+            clrscr(); // Limpa a tela
+            break;
+        case('2'):
+            mostra_livro(); // Digitando 2 inicia a função mostra_livro()
+            break;
+        //case(3):
+            //altera_livro();
+            //break;
+        default:
+            clrscr();
+            printf("\nOpcao invalida!\n");
+            break;
+        }
+        if (escolha == ESC) {
+            clrscr();
+            printf("\n\nSAINDO DO PROGRAMA...\n");
+        }
     }
 
-    getch();
+    //getch();
 
-    return 0;
+    //return 0;
 }
 
 void add_livro()
@@ -107,9 +125,10 @@ void add_livro()
         } while(escolha == 's' || escolha == 'S');
 
         fclose(arq);
-
-        return;
     }
+
+    clrscr(); // Limpa a tela
+    return;
 }
 
 void mostra_livro()
@@ -136,8 +155,12 @@ void mostra_livro()
 
         printf("\n\nPressione qualquer tecla para voltar ao menu.");
         getch();
-        return;
+
+        //main();
     }
+
+    clrscr(); // Limpa a tela
+    return;
 }
 
 void load_dados()
