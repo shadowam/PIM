@@ -1,0 +1,189 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <conio2.h>
+
+int IDcont=1; // var global usada para manter a sequência de ID dos livros
+
+typedef struct registro // estrutura com os dados de cada livro
+{
+    char nome[100];
+    char genero[100];
+    int ID;
+} livros;
+
+// Inicialização das funções
+void add_livro();
+void mostra_livro();
+void load_dados();
+
+// FUNÇÃO PRINCIPAL DO PROGRAMA
+int main()
+{
+	int escolha;
+
+    load_dados(); // Inicia a função load_dados ao abrir o programa
+                  // para que o contador de ID (IDcont) tome a posição correta
+
+    clrscr(); // Limpa a tela
+
+    // MENU BÁSICO
+    printf("\n1 -  Adicionar livro\n");
+    printf("\n2 -  Mostrar todos os livros\n");
+    printf("\nEntre com a opcao desejada: ");
+    scanf("%d", &escolha);
+    // FIM MENU
+
+    // Switch com as opções do menu
+    switch(escolha)
+    {
+    case(1): // Digitando 1 inicia a função add_livro
+        add_livro();
+        break;
+    case(2):
+        mostra_livro(); // Digitando 2 inicia a função mostra_livro()
+        break;
+    default: // ualquer outra tecla, sai do programa
+        printf("\n\nSaindo do programa...\n");
+        break;
+    }
+
+    getch();
+
+    return 0;
+}
+
+void add_livro()
+{
+    FILE* arq; // Cria ponteiro de arquivo
+    livros book[100]; // Cria 100 variáveis
+    int i = IDcont;
+    int slot;
+    char escolha;
+
+    if((arq=fopen("teste.txt", "a")) == NULL)
+        printf("\n\nErro ao abrir arquivo, por favor tente novamente.");
+    else
+    {
+        do
+        {
+
+            fflush(stdin);
+
+            int tamanho = 0; // var para nao usar loop com strlen, pois gera muitas iterações desnecessárias
+            do
+            {
+                clrscr(); //limpa a tela
+                if(tamanho != 0 && tamanho <= 5) // Mostrar na tela que deve digitar + de 5 chars
+                    printf("\nO nome do livro deve conter pelo menos 5 letras/numeros. Tente novamente.\n");
+                printf("\nInforme o nome: ");
+                fgets(book[i].nome, sizeof(book[i].nome), stdin);
+                tamanho = strlen(book[i].nome); // Evitando loop com strlen
+            } while (tamanho <= 5); // Se usuario digitar nome do livro com menos de 5 letras forcar que digite novamente
+
+            do
+            {
+                clrscr();
+                if(tamanho != 0 && tamanho <= 5)
+                    printf("\nO genero do livro deve conter pelo menos 5 letras/numeros. Tente novamente.\n");
+                printf("\nInforme o genero: ");
+                fgets(book[i].genero, sizeof(book[i].genero), stdin);
+                tamanho = strlen(book[i].genero); // Evitando loop com strlen
+            } while (tamanho <= 5);
+
+
+            //printf("\n\n%d\n\n", sizeof(book[i].genero);
+
+            book[i].ID = i;
+
+            fprintf(arq, "%d\n%s%s\n", book[i].ID, book[i].nome, book[i].genero);
+
+            printf("\n\nLivro adicionado com sucesso!");
+
+            printf("\n\nDeseja adicionar outro livro (pressione 'S' caso sim): ");
+            escolha = getch();
+            i++;
+
+        } while(escolha == 's' || escolha == 'S');
+
+        fclose(arq);
+
+        return;
+    }
+}
+
+void mostra_livro()
+{
+    FILE* arq;
+    livros book[100];
+    int i=1;
+
+    clrscr();
+    if((arq=fopen("teste.txt", "r")) == NULL)
+        printf("\n\nO arquivo nao pode ser aberto.");
+    else
+    {
+        while (fscanf(arq, "%d\n%s\n%s\n\n", &book[i].ID, book[i].nome, book[i].genero) != EOF)
+        //for (i=1; i<=IDcont; i++)
+        {
+            printf("ID: %d", book[i].ID);
+            printf("\nNome: %s", book[i].nome);
+            printf("\nGenero: %s\n\n", book[i].genero);
+            i++;
+        }
+
+        fclose(arq);
+
+        printf("\n\nPressione qualquer tecla para voltar ao menu.");
+        getch();
+        return;
+    }
+}
+
+void load_dados()
+{
+    FILE* arq;
+    livros book[100];
+    int i=1;
+
+    if((arq=fopen("teste.txt", "r")) == NULL)
+    {
+        clrscr();
+        printf("\n\nO Arquivo nao pode ser aberto, por favor tente novamente.");
+    }
+    else
+    {
+        while (fscanf(arq, "%d\n%s\n%s\n\n", &book[i].ID, book[i].nome, book[i].genero) != EOF)
+        {
+            i++;
+            while(IDcont < i)
+            {
+                IDcont++;
+            }
+        }
+
+        fclose(arq);
+    }
+
+    return;
+}
+
+/*
+registro novoLivro()
+{
+    registro book;
+
+    fflush(stdin);
+    printf("\n\nADICIONAR NOVO LIVRO\n");
+    printf("\n\nInsira o nome do livro: ");
+    //fgets(book.nome, sizeof(book.nome), stdin);
+    //fprintf(arq, book.nome);
+    scanf("%s", &book.nome);
+
+    printf("\n\nInsira o genero do livro: ");
+    //fgets(book.genero, sizeof(book.genero), stdin);
+    scanf("%s", &book.genero);
+
+    return book;
+}
+*/
