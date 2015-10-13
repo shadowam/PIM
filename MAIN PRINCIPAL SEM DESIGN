@@ -1,0 +1,252 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <conio2.h>
+
+#define ESC 27
+
+int IDcont=1; // var global usada para manter a sequência de ID dos livros
+int ultimo_livro;
+
+typedef struct registro // estrutura com os dados de cada livro
+{
+    char nome[100];
+    char genero[100];
+    int ID;
+} livros;
+
+livros book[100];
+
+// Inicialização das funções
+void add_livro();
+void mostra_livro();
+void load_dados();
+void procura_livro();
+void salva_dados();
+void altera_livro();
+
+// FUNÇÃO PRINCIPAL DO PROGRAMA
+int main()
+{
+    load_dados(); // Inicia a função load_dados ao abrir o programa
+                  // para que o contador de ID (IDcont) tome a posição correta
+	char escolha;
+
+    while (escolha != ESC)
+    {
+        //printf("\n\nVALOR DE IDcont: %d\n", IDcont);
+        //printf("Teste: %d\n", book[IDcont+1].ID);
+
+        // MENU BÁSICO
+        printf("\n1 -  Adicionar livro\n");
+        printf("\n2 -  Mostrar todos os livros\n");
+        printf("\n3 -  Alterar livro\n");
+        printf("\n4 -  Procurar livro\n");
+        printf("\nEntre com a opcao desejada: ");
+        escolha = getch();
+        // FIM MENU
+
+        // Switch com as opções do menu
+        switch(escolha)
+        {
+        case('1'): // Digitando 1 inicia a função add_livro
+            add_livro();
+            clrscr(); // Limpa a tela
+            break;
+        case('2'):
+            mostra_livro(); // Digitando 2 inicia a função mostra_livro()
+            break;
+        case('3'):
+            altera_livro();
+            break;
+        case('4'):
+            procura_livro();
+            break;
+        default:
+            clrscr();
+            printf("\nOpcao invalida!\n");
+            break;
+        }
+        if (escolha == ESC) {
+            clrscr();
+            printf("\n\nSAINDO DO PROGRAMA...\n");
+            salva_dados();
+        }
+    }
+
+    getch();
+
+}
+
+void load_dados()
+{
+    FILE* arq;
+
+    int i=1;
+
+    if ((arq=fopen("teste.txt", "r")) == NULL)
+    {
+        clrscr();
+        printf("\n\nO Arquivo nao pode ser aberto, por favor tente novamente.");
+    }
+    else
+    {
+        while (!feof(arq))
+        {
+            if (fscanf(arq, "%d %s %s", &book[i].ID, book[i].nome, book[i].genero) != 3)
+                break;
+            i++;
+            if (IDcont < i)
+                IDcont++;
+        }
+
+        fclose(arq);
+    }
+
+    ultimo_livro = IDcont;
+
+    return;
+}
+
+void add_livro()
+{
+    int i = IDcont;
+    char escolha;
+
+    fflush(stdin);
+
+    int tamanho = 0; // var para nao usar loop com strlen, pois gera muitas iterações desnecessárias
+    // não está sendo usada agora mas usarei futuramente para obrigar o usuário a digitar + de 3 letras
+    // no livro, genero, etc...
+
+    do
+    {
+        clrscr(); //limpa a tela
+
+        book[i].ID = i;
+
+        printf("\nInforme o nome: ");
+        fgets(book[i].nome, sizeof(book[i].nome), stdin);
+        if (book[i].nome[strlen(book[i].nome) - 1] == '\n')
+        {
+            book[i].nome[strlen(book[i].nome) - 1] = '\0'; //retirando o 'newline' do final da string
+        }
+
+        printf("\nInforme o genero: ");
+        fgets(book[i].genero, sizeof(book[i].genero), stdin);
+        if (book[i].genero[strlen(book[i].genero) - 1] == '\n')
+        {
+            book[i].genero[strlen(book[i].genero) - 1] = '\0'; //retirando o 'newline' do final da string
+        }
+
+        i++;
+        IDcont=i;
+
+        printf("\n\nDeseja adicionar outro livro (pressione 'S' caso sim): ");
+        escolha = getch();
+
+    } while(escolha == 's' || escolha == 'S');
+
+    clrscr(); // Limpa a tela
+    return;
+}
+
+void mostra_livro()
+{
+    clrscr();
+    int i=1;
+
+    for (i=1; i<IDcont; i++)
+    {
+
+        printf("%d\n%s\n%s\n\n", book[i].ID, book[i].nome, book[i].genero);
+    }
+
+    printf("\n\nPressione qualquer tecla para voltar ao menu.");
+    getch();
+
+    clrscr();
+
+    return;
+}
+
+void procura_livro()
+{
+    clrscr();
+    int i=1, j;
+    char pesqLivro[100];
+
+    fflush(stdin);
+    printf("\n\nDigite o nome do livro que deseja pesquisar: ");
+    fgets(pesqLivro, sizeof(pesqLivro), stdin);
+
+/*AO REALIZAR A PESQUISA E ENCONTRAR RESULTADOS, OFERECER A OPÇÃO DE ALTERAR O LIVRO PELO ID (SE FOR ADMIN)*/
+
+    for(j=1; j<IDcont; j++)
+    {
+        if (strncmp(book[j].nome, pesqLivro, 3) == 0)
+        {
+            printf("\nLIVRO ENCONTRADO!\n");
+            printf("\nID: %d", book[j].ID);
+            printf("\nLivro: %s\n", book[j].nome);
+            printf("Genero: %s\n", book[j].genero);
+        }
+    }
+
+    getch();
+    clrscr();
+    return;
+}
+
+void altera_livro()
+{
+    clrscr();
+    int j, contador=0;
+    char pesqLivro[100];
+
+    fflush(stdin);
+    printf("\n\nDigite o nome do livro que deseja alterar: ");
+    fgets(pesqLivro, sizeof(pesqLivro), stdin);
+
+    for(j=1; j<IDcont; j++)
+    {
+        if (strncmp(book[j].nome, pesqLivro, 3) == 0)
+        {
+            contador++;
+            printf("\nID: %d", book[j].ID);
+            printf("\nLivro: %s\n", book[j].nome);
+            printf("Genero: %s\n", book[j].genero);
+        }
+    }
+    if (contador == 0)
+        printf("\nNENHUM LIVRO ENCONTRADO!\n");
+    else
+        printf("\n%d LIVROS ENCONTRADOS. Utilize as setas para escolher o livro.\n", contador);
+
+    getch();
+    clrscr();
+    return;
+}
+
+void salva_dados()
+{
+    int i=1;
+    FILE *arq;
+
+    if((arq=fopen("teste.txt", "a")) == NULL)
+    {
+        clrscr();
+        printf("\n\nERRO AO ABRIR ARQUIVO, FAVOR TENTAR NOVAMENTE.");
+    }
+    else
+    {
+        for (ultimo_livro; ultimo_livro<IDcont; ultimo_livro++)
+        {
+            fprintf(arq, "%d\n%s\n%s\n\n", book[ultimo_livro].ID, book[ultimo_livro].nome, book[ultimo_livro].genero);
+        }
+        printf("\n\nLivros adicionados com sucesso!");
+    }
+
+    fclose(arq);
+}
+
