@@ -41,14 +41,17 @@ void menu();
 void cadastrar();
 void consulentes();
 void teste();
+void alterar();
 
 // INICIO DO PROGRAMA
 int main()
 {
     system("cmd /c \"mode con: cols=120 lines=44\"");
     load_dados();
+
     menu();
-    return 0;
+
+    return(0);
 }
 // FIM DO PROGRAMA
 
@@ -249,7 +252,7 @@ void mostradados()
 
     //SEGUNDA PARTE
     while (tecla != ESC) {
-        system("cls");
+        clrscr();
         cabecalho();
         rodape();
         mostralivro();
@@ -320,7 +323,7 @@ void mostradados()
             }
             else {
                 if (tecla == ESC) {
-                    system("cls");
+                    clrscr();
                     menu();
                 }
             }
@@ -336,7 +339,7 @@ void mostradados()
 
 void consulentes()
 {
-    system("cls");
+    clrscr();
     cabecalho();
     rodape();
 
@@ -364,7 +367,7 @@ void consulentes()
     }
 
     if (setas == ESC) {
-        system("cls");
+        clrscr();
         menu();
     }
 }
@@ -372,14 +375,17 @@ void consulentes()
 // INICIO DA FUNÇÃO PARA SAIR DO PROGRAMA
 void sair()
 {
-    system("cls");
-    cabecalho();
-    rodape();
+    clrscr();
 
     int contador=1;  //contador
     char setas;  //variável usada para captura de tecla
 
     while (setas != ESC) {
+
+	    cabecalho();
+	    mostralivro();
+	    rodape();
+
         //se usuário estiver na primeira opção do menu e apertar seta para cima
         //cursor vai para a opção de baixo
         if (contador<1)
@@ -391,7 +397,6 @@ void sair()
 
         switch (contador) {
             case(1):
-                mostralivro();
                 gotoxy(81,14);
                 printf("Deseja sair do sistema?");
                 textcolor(LIGHTGREEN);
@@ -413,7 +418,6 @@ void sair()
                     contador++;
                 break;
             case(2):
-                mostralivro();
                 gotoxy(81,14);
                 printf("Deseja sair do sistema?");
                 gotoxy(91,20);
@@ -427,6 +431,7 @@ void sair()
                 //caso cursor estiver na posição 2 (Nao) e tecla pressionada for ENTER, entrar na função 'menu()' novamente
                 if (setas==ENTER) {
                     clrscr();
+                    printf("teste1");
                     return;
                 }
                 // else/if para movimentação do cursor
@@ -437,13 +442,12 @@ void sair()
                 break;
             default:
                 printf("Opcao invalida, tente novamente!\n");
+                break;
         }
     }
-    if (setas == ESC)
-        menu();
+    //return;
 }
 // FIM DA FUNÇÃO SAIR DO PROGRAMA
-
 
 // INICIO DA FUNÇÃO PARA MOSTRAR O MENU INICIAL DO PROGRAMA
 void menu()
@@ -451,11 +455,11 @@ void menu()
     int contador=1;  //contador
     char setas;  //variável usada para captura de tecla
 
-    cabecalho();
-    mostralivro();
-    rodape();
+    do {
 
-    while(setas != ESC){
+        cabecalho();
+        mostralivro();
+        rodape();
         //se usuário estiver na primeira opção do menu e apertar seta para cima
         //cursor vai para a última opção (6)
         if (contador<1)
@@ -468,7 +472,6 @@ void menu()
         switch (contador)
         {
             case(1):
-                mostralivro();
                 textcolor(LIGHTGREEN);
                 gotoxy(76,12);
                 printf("Menu de Livros                 <--");
@@ -514,7 +517,7 @@ void menu()
                 setas=getch();
                 //caso cursor estiver na posição (2) e tecla pressionada for ENTER, entrar na função 'regras()'
                 if (setas==ENTER){
-                    system("cls");
+                    clrscr();
                     consulentes();
                     gotoxy(120,43);
                     getch();
@@ -545,7 +548,7 @@ void menu()
                 setas=getch();
                 //caso cursor estiver na posição (3) e tecla pressionada for ENTER, entrar na função 'creditos()'
                 if (setas==ENTER){
-                    system("cls");
+                    clrscr();
                     cadastrar();
                     gotoxy(120,43);
                     getch();
@@ -576,7 +579,7 @@ void menu()
                 setas=getch();
                 //caso cursor estiver na posição (3) e tecla pressionada for ENTER, entrar na função 'creditos()'
                 if (setas==ENTER){
-                    system("cls");
+                    clrscr();
                     alterar();
                     gotoxy(120,43);
                     getch();
@@ -607,10 +610,8 @@ void menu()
                 setas=getch();
                 //caso cursor estiver na posição (3) e tecla pressionada for ENTER, entrar na função 'creditos()'
                 if (setas==ENTER){
-                    system("cls");
+                    clrscr();
                     teste();
-                    gotoxy(120,43);
-                    getch();
                 }
                 // else/if para movimentação do cursor
                 else if (setas==ACIMA)
@@ -648,19 +649,25 @@ void menu()
                 break;
             default:
                 printf("Opcao invalida, tente novamente!\n");
+                getch();
         }
+        //se tecla ESC for pressionada, chamar função 'sair()', finalizando o progra
 
-        //se tecla ESC for pressionada, chamar função 'sair()', finalizando o programa
-        if (setas==ESC)
-            sair();
-    }
+        //if (setas==ESC)
+        //    break;
+        //    sair();
+        //}
+    } while(setas != ESC);
+
+    if (setas == ESC)
+        sair();
 }
 // FIM DA FUNÇÃO MENU
 
 // INICIO DA FUNÇÃO PARA CADASTRAR NOVO LIVRO
 void cadastrar()
 {
-    system("cls");
+    clrscr();
     cabecalho();
     rodape();
 
@@ -688,7 +695,7 @@ void cadastrar()
     }
 
     if (setas == ESC) {
-        system("cls");
+        clrscr();
         menu();
     }
 }
@@ -697,7 +704,7 @@ void cadastrar()
 // INICIO DA FUNÇÃO PARA CADASTRAR NOVO LIVRO
 void teste()
 {
-    system("cls");
+    clrscr();
     cabecalho();
     rodape();
 
@@ -732,7 +739,7 @@ void teste()
     }
 
     if (setas == ESC) {
-        system("cls");
+        clrscr();
         menu();
     }
 }
@@ -766,7 +773,7 @@ void alterar()
         gotoxy(120,43);
     }
 
-    getch();
-    clrscr();
+    //getch();
+    //clrscr();
     return;
 }
