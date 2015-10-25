@@ -1,0 +1,955 @@
+#include <stdio.h> //biblioteca que controla os comandos de entrada e saída
+#include <stdlib.h> //biblioteca que define funções básicas de propósito geral
+#include <conio2.h> //biblioteca usada para edição da janela de console, como posição e cor
+#include <string.h> //biblioteca usada para a manipulação de dados 'string'
+#include <errno.h>
+#include <ctype.h>
+//#include "livros.h" //header que contém a lista de livros
+
+/* Todas as linhas com textcolor() ou gotoxy(x,y) fazem parte da biblioteca conio, sendo
+   usadas respectivamente para alterar cor do texto e posicionar a próxima linha em X,Y  */
+
+/* definindo que a VAR corresponde ao código X da tecla no teclado.
+#define VAR X  */
+
+#define ACIMA 72
+#define ABAIXO 80
+#define ESQUERDA 75
+#define DIREITA 77
+#define ESC 27
+#define ENTER 13
+#define BACKSPACE 8
+#define TAB 9
+
+int IDcont=1, ultimo_livro;
+
+typedef struct registro {
+    char titulo[100];
+    char autor[100];
+    char genero[100];
+    char editora[100];
+    char status[25];
+    char ISBN[10];
+    int edicao;
+    int ID;
+    int paginas;
+    float aval;
+} livros;
+
+livros book[100];
+
+void load_dados();
+void menu();
+void cadastrar();
+void consulentes();
+void teste();
+void alterar();
+void adicionar_livro();
+void pesq_livro();
+
+// INICIO DO PROGRAMA
+int main()
+{
+    system("cmd /c \"mode con: cols=120 lines=44\"");
+    load_dados();
+
+    menu();
+
+    return(0);
+}
+// FIM DO PROGRAMA
+
+//FUNÇÃO USADA PARA VALIDAR ENTRADA DE NUMERO INTEIRO
+int SomenteNumeros(int *i, int x, int y) {
+    int invalido = 0;
+    int FimIndex;
+    char buffer[100];
+    do {
+        if (invalido) {
+            gotoxy(40,37);
+            textcolor(LIGHTRED);
+            fputs("Dados invalidos! Digite apenas numeros.\n", stdout);
+            textcolor(WHITE);
+        }
+        invalido = 1;
+        cputsxy(x, y, "                                                                              ");
+        //printf("%d | %d", x, y);
+        gotoxy(x, y);
+        if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
+            return 1;
+        }
+
+        gotoxy(40,37);
+        clreol();
+        errno = 0;
+
+    } while ((sscanf(buffer, "%d %n", i, &FimIndex) != 1) || buffer[FimIndex] || errno);
+
+    return 0;
+}
+
+int to_maiuscula (char *i, int x, int y)
+{
+    int j, invalido=0;
+    char buffer[100];
+
+    do
+    {
+        if(invalido==1)
+        {
+            gotoxy(37,37);
+            textcolor(LIGHTRED);
+            fputs("Dados invalidos! Digite ao menos um caractere.\n", stdout);
+            textcolor(WHITE);
+        }
+
+        //cputsxy(x, y, "                                                                              ");
+
+        gotoxy(x, y);
+        if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
+            return 1;
+        }
+
+        invalido=strlen(buffer);
+
+
+
+        gotoxy(37,37);
+        clreol();
+        errno = 0;
+        /*
+        else
+        {
+            for(j=0; j <= strlen(i); j++)
+            {
+                if(i[j] == '\n')
+                {
+                    i[j] = '\0';
+                    //break;
+                }
+                else
+                {
+                    i[j] = toupper(i[j]);
+                    putchar(toupper(i[j]));
+                }
+            }
+        }
+        */
+    } while (fgets(buffer, sizeof(buffer), stdin) != NULL);
+
+    return 0;
+}
+
+void load_dados()
+{
+    FILE* arq;
+
+    char buffer[1000];
+
+    int i=1;
+
+    if ((arq=fopen("teste.txt", "r")) == NULL)
+    {
+        clrscr();
+        printf("\n\nO Arquivo nao pode ser aberto, por favor tente novamente.");
+    }
+    else
+    {
+        //while (!feof(arq))
+        //while (fscanf(arq, "%d %s %s", &book[i].ID, &book[i].titulo, &book[i].genero) == 3)
+        while((fgets(buffer, sizeof(buffer), arq)) != 0)
+        {
+            //if (fscanf(arq, "%d %s %s", &book[i].ID, book[i].titulo, book[i].genero) != 3)
+            //    break;
+            //fgets(book[i].titulo, sizeof(book[i].titulo), arq);
+            sscanf(buffer, "%d : %[^:] : %[^:] : %[^:] : %[^:] : %d : %d : %[^:]", &book[i].ID, book[i].titulo, book[i].autor, book[i].genero, book[i].editora, &book[i].edicao, &book[i].paginas, book[i].ISBN);
+
+            //book[i].titulo = strupr(book[i].titulo);
+            //strupr(book[i].titulo);
+
+            i++;
+            if (IDcont < i)
+                IDcont++;
+        }
+
+        fclose(arq);
+    }
+
+    ultimo_livro = IDcont;
+
+    return;
+}
+
+/*
+struct Usuarios {
+    int id_cliente;
+    int documento;
+    char nome[100];
+    int telefone;
+} Usuario;
+*/
+
+// INICIO DA FUNÇÃO PARA MOSTRAR O CABEÇALHO DO PROGRAMA
+void cabecalho()
+{
+    gotoxy(1,1);
+    printf("\n ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿\n");
+    printf(" ³                                                                                                                    ³\n");
+    printf(" ³                                             BIBLIOTECA A.S.T.R.A.                                                  ³\n");
+    printf(" ³                                                                                                                    ³\n");
+    printf(" ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ\n");
+}
+// FIM DA FUNÇÃO CABEÇALHO
+
+
+// INICIO DA FUNÇÃO PARA MOSTRAR O RODAPE DO PROGRAMA
+void rodape()
+{
+    gotoxy(1,38);
+    printf("\n ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿\n");
+    printf(" ³                                                                                                                    ³\n");
+    printf(" ³                                   UNIP - PROJETO INTEGRADO MULTIDISCIPLINAR                                        ³\n");
+    printf(" ³                                                                                                                    ³\n");
+    printf(" ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ\n");
+}
+// FIM DA FUNÇÃO RODAPÉ
+
+
+// INICIO DA FUNÇÃO PARA MOSTRAR A ARTE DO LIVRE EM ASCII
+void mostralivro()
+{
+    gotoxy(1,8);
+    printf("                                            ~~~~~:D8                                                              \n");
+    printf("                                      ~~~~~~~~~~~~::D                 ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿\n");
+    printf("                                   ::~~~~~~~~~~~~~~::D                ³                                          ³\n");
+    printf("                                 ::::::::~~~~~~~~~~~::D               ³                                          ³\n");
+    printf("                                :::::::::::~~~~~~~~~:::D              ³                                          ³\n");
+    printf("                              ~::::::::::::::~~~~~~~~:::D             ³                                          ³\n");
+    printf("                     ,::::::~~~:::,,,,,,:::::::~~~~~:::::D            ³                                          ³\n");
+    printf("                  ,,,,:::::::~+~:,,....,,,::::::~~::::::::D           ³                                          ³\n");
+    printf("               ,,,,,,,,,::::::~~:,,......,,,::::::~~:::::::D          ³                                          ³\n");
+    printf("             ,,,,,,,,,,,,,:::::=~,,.......,,,::::::~~:::::,,D         ³                                          ³\n");
+    printf("           ,,,,,,,,,,,,,,,,::::~=:,,.......,,,::::::~~~::::,,D        ³                                          ³\n");
+    printf("        =,,,,,,,,,,,,,,,,,,,::::~=:,,.......,,,:::::::~~::::,.D       ³                                          ³\n");
+    printf("        ?=,,,,,,,,,,,,,,,,,,:::::~=,,,........,,:::::::~~:::::,D      ³                                          ³\n");
+    printf("       8O~=,,,,,,,,,,,,,,,,,::::::~=,,,........,,::::::::~~::::ID     ³                                          ³\n");
+    printf("       8OO~,,,,,,,,,,,,,,,,,:::::::~=,,,........,,,::::::::::,7O$N    ³                                          ³\n");
+    printf("        8O?=,,,,,...,,,,,,,,::::::::~:,,,.........,,,.?77Z$O7NDO      ³                                          ³\n");
+    printf("         DO++,,,,......,,,,,,::::::,:~:,,,....  ?IZ$$$$$$NDD          ³                                          ³\n");
+    printf("         DOO~~,,,,......,,,,,,::::::,:~:,,,..?O$$$O$$$DO              ³                                          ³\n");
+    printf("          8OO~,,,,.......,,,,,,::::::,:~:,,.8$$$$$ZDD                 ³                                          ³\n");
+    printf("           DO7=,,,........,,,,,,::::::,:~:,$Z$$$N8                    ³                                          ³\n");
+    printf("           DDO==,,,........,,,,,,::????I:~$$$$D                       ³                                          ³\n");
+    printf("            8OO=,,,.........,..???$$$ZZ$$NNMN                         ³                                          ³\n");
+    printf("             DO7=,,,.........??$$$$$$$$$$MD8                          ³                                          ³\n");
+    printf("             DDO?+,,.......I$ZO$$8$$NN   N                            ³                                          ³\n");
+    printf("              DOO+,,.....7Z$$$$$DO                                    ³                                          ³\n");
+    printf("               DOO+,....$$$$$NO                                       ³                                          ³\n");
+    printf("               NDO7+..$$$$ND                                          ³                                          ³\n");
+    printf("                DOO=$$$NDM                                            ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ\n");
+    printf("                 DO$$NO                                                                                           \n");
+    printf("                 NNDN                                                                                             \n");
+}
+// FIM DA FUNÇÃO MOSTRAR LIVRO
+
+void mostradados()
+{
+    gotoxy(1,8);
+    printf("            ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿\n");
+    printf("            ³                                   CADASTRO DE NOVO LIVRO                                   ³\n");
+    printf("            ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ\n");
+    printf("\n            ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿\n");
+    printf("            ³                                                                                            ³\n");
+    printf("            ³                                                                                            ³\n");
+    printf("            ³   Titulo:                                                                                  ³\n");
+    printf("            ³                                                                                            ³\n");
+    printf("            ³                                                                                            ³\n");
+    printf("            ³   Autor:                                                                                   ³\n");
+    printf("            ³                                                                                            ³\n");
+    printf("            ³                                                                                            ³\n");
+    printf("            ³   Genero:                                                                                  ³\n");
+    printf("            ³                                                                                            ³\n");
+    printf("            ³                                                                                            ³\n");
+    printf("            ³   Editora:                                                                                 ³\n");
+    printf("            ³                                                                                            ³\n");
+    printf("            ³                                                                                            ³\n");
+    printf("            ³   Edicao:                                                                                  ³\n");
+    printf("            ³                                                                                            ³\n");
+    printf("            ³                                                                                            ³\n");
+    printf("            ³   Paginas:                                                                                 ³\n");
+    printf("            ³                                                                                            ³\n");
+    printf("            ³                                                                                            ³\n");
+    printf("            ³   ISBN:                                                                                    ³\n");
+    printf("            ³                                                                                            ³\n");
+    printf("            ³                                                                                            ³\n");
+    printf("            ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ\n");
+    gotoxy(25,15);
+}
+
+void consulentes()
+{
+    clrscr();
+    cabecalho();
+    rodape();
+
+    //char contador;  //contador
+    char setas;  //variável usada para captura de tecla
+
+    while (setas != ESC) {
+        mostradados();
+        setas=getch();
+    /*
+        contador=getch();
+
+        if (contador==ENTER) {
+            gotoxy(24,18);
+            scanf("%s", &contador);
+
+            contador=getch();
+
+            if (contador==ENTER) {
+                gotoxy(25,21);
+                scanf("%s", &contador);
+            }
+
+    */
+    }
+
+    if (setas == ESC) {
+        return;
+    }
+}
+
+// INICIO DA FUNÇÃO PARA SAIR DO PROGRAMA
+void sair()
+{
+    clrscr();
+
+    int contador=1;  //contador
+    char setas;  //variável usada para captura de tecla
+
+    while (contador==1 || contador==2) {
+
+	    cabecalho();
+	    mostralivro();
+	    rodape();
+
+        //se usuário estiver na primeira opção do menu e apertar seta para cima
+        //cursor vai para a opção de baixo
+        if (contador<1)
+            contador=2;
+        //se usuário estiver na opção de baixo e apertar seta para baixo
+        //cursor vai para a primeira opção
+        else if (contador>2)
+            contador=1;
+
+        switch (contador) {
+            case(1):
+                gotoxy(81,14);
+                printf("Deseja sair do sistema?");
+                textcolor(LIGHTGREEN);
+                gotoxy(88,20);
+                printf("-> Sim");
+                textcolor(WHITE);
+                gotoxy(91,23);
+                printf("Nao");
+                gotoxy(120,43);
+                setas=getch();
+                //caso cursor estiver na posição (1) e tecla pressionada for ENTER, sai do sistema.
+                if (setas==ENTER){
+                    exit(0);
+                }
+                // else/if para movimentação do cursor
+                else if (setas==ACIMA)
+                    contador=2;
+                else if (setas==ABAIXO)
+                    contador++;
+                break;
+            case(2):
+                gotoxy(81,14);
+                printf("Deseja sair do sistema?");
+                gotoxy(91,20);
+                printf("Sim");
+                textcolor(LIGHTGREEN);
+                gotoxy(88,23);
+                printf("-> Nao");
+                textcolor(WHITE);
+                gotoxy(120,43);
+                setas=getch();
+                //caso cursor estiver na posição 2 (Nao) e tecla pressionada for ENTER, entrar na função 'menu()' novamente
+                if (setas==ENTER) {
+                    return;
+                }
+                // else/if para movimentação do cursor
+                else if (setas==ACIMA)
+                    contador--;
+                else if (setas==ABAIXO)
+                    contador=1;
+                break;
+            default:
+                printf("Opcao invalida, tente novamente!\n");
+                break;
+        }
+    }
+    //return;
+}
+// FIM DA FUNÇÃO SAIR DO PROGRAMA
+
+// INICIO DA FUNÇÃO PARA MOSTRAR O MENU INICIAL DO PROGRAMA
+void menu()
+{
+    int contador=1;  //contador
+    char setas;  //variável usada para captura de tecla
+
+    do {
+        cabecalho();
+        mostralivro();
+        rodape();
+        //se usuário estiver na primeira opção do menu e apertar seta para cima
+        //cursor vai para a última opção (6)
+        if (contador<1)
+            contador=6;
+        //se usuário estiver na última opção do menu e apertar seta para baixo
+        //cursor vai para a primeira opção (1)
+        else if (contador>6)
+            contador=1;
+
+        switch (contador)
+        {
+            case(1):
+                textcolor(LIGHTGREEN);
+                gotoxy(76,12);
+                printf("Menu de Livros                 <--");
+                textcolor(WHITE);
+                gotoxy(76,15);
+                printf("Menu de Consulentes               ");
+                gotoxy(76,18);
+                printf("Pesquisar Livro                   ");
+                gotoxy(76,21);
+                printf("Alterar Livro                     ");
+                gotoxy(76,24);
+                printf("Menu Temporario                   ");
+                gotoxy(76,29);
+                printf("Sair                              ");
+                gotoxy(120,43);
+                setas=getch();
+                if (setas==ENTER) {
+                    adicionar_livro();
+                }
+                // else/if para movimentação do cursor
+                else if (setas==ACIMA)
+                    contador=6;
+                else if (setas==ABAIXO)
+                    contador++;
+                break;
+            case(2):
+                textcolor(WHITE);
+                gotoxy(76,12);
+                printf("Menu de Livros                    ");
+                gotoxy(76,15);
+                textcolor(LIGHTGREEN);
+                printf("Menu de Consulentes            <--");
+                textcolor(WHITE);
+                gotoxy(76,18);
+                printf("Pesquisar Livro                   ");
+                gotoxy(76,21);
+                printf("Alterar Livro                     ");
+                gotoxy(76,24);
+                printf("Menu Temporario                   ");
+                gotoxy(76,29);
+                printf("Sair                              ");
+                gotoxy(120,43);
+                setas=getch();
+                //caso cursor estiver na posição (2) e tecla pressionada for ENTER, entrar na função 'regras()'
+                if (setas==ENTER){
+                    consulentes();
+                }
+                // else/if para movimentação do cursor
+                else if (setas==ACIMA)
+                    contador--;
+                else if (setas==ABAIXO)
+                    contador++;
+                break;
+            case(3):
+                textcolor(WHITE);
+                gotoxy(76,12);
+                printf("Menu de Livros                    ");
+                gotoxy(76,15);
+                printf("Menu de Consulentes               ");
+                gotoxy(76,18);
+                textcolor(LIGHTGREEN);
+                printf("Pesquisar Livro                <--");
+                textcolor(WHITE);
+                gotoxy(76,21);
+                printf("Alterar Livro                     ");
+                gotoxy(76,24);
+                printf("Menu Temporario                   ");
+                gotoxy(76,29);
+                printf("Sair                              ");
+                gotoxy(120,43);
+                setas=getch();
+                //caso cursor estiver na posição (3) e tecla pressionada for ENTER, entrar na função 'creditos()'
+                if (setas==ENTER){
+                    pesq_livro();
+                }
+                // else/if para movimentação do cursor
+                else if (setas==ACIMA)
+                    contador--;
+                else if (setas==ABAIXO)
+                    contador++;
+                break;
+            case(4):
+                textcolor(WHITE);
+                gotoxy(76,12);
+                printf("Menu de Livros                    ");
+                gotoxy(76,15);
+                printf("Menu de Consulentes               ");
+                gotoxy(76,18);
+                printf("Pesquisar Livro                   ");
+                gotoxy(76,21);
+                textcolor(LIGHTGREEN);
+                printf("Alterar Livro                  <--");
+                textcolor(WHITE);
+                gotoxy(76,24);
+                printf("Menu Temporario                   ");
+                gotoxy(76,29);
+                printf("Sair                              ");
+                gotoxy(120,43);
+                setas=getch();
+                //caso cursor estiver na posição (3) e tecla pressionada for ENTER, entrar na função 'creditos()'
+                if (setas==ENTER){
+                    alterar();
+                }
+                // else/if para movimentação do cursor
+                else if (setas==ACIMA)
+                    contador--;
+                else if (setas==ABAIXO)
+                    contador++;
+                break;
+            case(5):
+                textcolor(WHITE);
+                gotoxy(76,12);
+                printf("Menu de Livros                    ");
+                gotoxy(76,15);
+                printf("Menu de Consulentes               ");
+                gotoxy(76,18);
+                printf("Pesquisar Livro                   ");
+                gotoxy(76,21);
+                printf("Alterar Livro                     ");
+                gotoxy(76,24);
+                textcolor(LIGHTGREEN);
+                printf("Menu Temporario                <--");
+                textcolor(WHITE);
+                gotoxy(76,29);
+                printf("Sair                              ");
+                gotoxy(120,43);
+                setas=getch();
+                //caso cursor estiver na posição (3) e tecla pressionada for ENTER, entrar na função 'creditos()'
+                if (setas==ENTER){
+                    teste();
+                }
+                // else/if para movimentação do cursor
+                else if (setas==ACIMA)
+                    contador--;
+                else if (setas==ABAIXO)
+                    contador++;
+                break;
+            case(6):
+                textcolor(WHITE);
+                gotoxy(76,12);
+                printf("Menu de Livros                    ");
+                gotoxy(76,15);
+                printf("Menu de Consulentes               ");
+                gotoxy(76,18);
+                printf("Pesquisar Livro                   ");
+                gotoxy(76,21);
+                printf("Alterar Livro                     ");
+                gotoxy(76,24);
+                printf("Menu Temporario                   ");
+                gotoxy(76,29);
+                textcolor(LIGHTGREEN);
+                printf("Sair                           <--");
+                textcolor(WHITE);
+                gotoxy(120,43);
+                setas=getch();
+                //caso cursor estiver na posição (4) e tecla pressionada for ENTER, entrar na função 'sair()'
+                if (setas==ENTER){
+                    sair();
+                }
+                // else/if para movimentação do cursor
+                else if (setas==ACIMA)
+                    contador--;
+                else if (setas==ABAIXO)
+                    contador=1;
+                break;
+            default:
+                printf("Opcao invalida, tente novamente!\n");
+                getch();
+                break;
+        }
+        //se tecla ESC for pressionada, chamar função 'sair()', finalizando o progra
+
+        if (setas==ESC)
+        //    break;
+            sair();
+        //}
+    } while (contador != 0);//while(setas != ESC);
+}
+// FIM DA FUNÇÃO MENU
+
+// INICIO DA FUNÇÃO PARA CADASTRAR NOVO LIVRO
+void cadastrar()
+{
+    clrscr();
+    cabecalho();
+    rodape();
+
+    //char contador;  //contador
+    char setas;  //variável usada para captura de tecla
+
+    while (setas != ESC) {
+        mostradados();
+        setas=getch();
+    /*
+        contador=getch();
+
+        if (contador==ENTER) {
+            gotoxy(24,18);
+            scanf("%s", &contador);
+
+            contador=getch();
+
+            if (contador==ENTER) {
+                gotoxy(25,21);
+                scanf("%s", &contador);
+            }
+
+    */
+    }
+
+    if (setas == ESC) {
+        return;
+    }
+}
+// FIM DA FUNÇÃO CADASTRAR NOVO LIVRO
+
+// INICIO DA FUNÇÃO PARA CADASTRAR NOVO LIVRO
+void teste()
+{
+    clrscr();
+    cabecalho();
+    rodape();
+
+    //char contador;  //contador
+    char setas;  //variável usada para captura de tecla
+
+    while (setas != ESC) {
+        mostradados();
+        printf("%d", book[20].ID);
+        gotoxy(24, 18);
+        printf("%s", book[20].titulo);
+        gotoxy(25, 21);
+        printf("%s", book[20].genero);
+        gotoxy(26, 24);
+        printf("%s", book[20].editora);
+        gotoxy(25, 27);
+        printf("%d", book[20].edicao);
+        gotoxy(26, 30);
+        printf("%d", book[20].paginas);
+        gotoxy(23, 33);
+        printf("%s", book[20].ISBN);
+
+        setas=getch();
+    /*
+        contador=getch();
+
+        if (contador==ENTER) {
+            gotoxy(24,18);
+            scanf("%s", &contador);
+
+            contador=getch();
+
+            if (contador==ENTER) {
+                gotoxy(25,21);
+                scanf("%s", &contador);
+            }
+
+    */
+    }
+
+    if (setas == ESC) {
+        return;
+    }
+}
+// FIM DA FUNÇÃO CADASTRAR NOVO LIVRO
+
+void adicionar_livro()
+{
+
+    FILE * arq;
+
+    char setas;
+    int controle=1;
+
+    do {
+        clrscr();
+        cabecalho();
+        rodape();
+        mostradados();
+
+        if(setas==ESC)
+            break;
+
+        //gotoxy(25, 15);
+        //fgets(book[IDcont].titulo, sizeof(book[IDcont].titulo), stdin);
+        to_maiuscula(book[IDcont].titulo, 25, 15);
+
+        //gotoxy(24, 18);
+        //fgets(book[IDcont].autor, sizeof(book[IDcont].autor), stdin);
+        to_maiuscula(book[IDcont].autor, 24, 18);
+
+        //gotoxy(25, 21);
+        fgets(book[IDcont].genero, sizeof(book[IDcont].genero), stdin);
+        to_maiuscula(book[IDcont].genero, 25, 21);
+
+        //gotoxy(26, 24);
+        fgets(book[IDcont].editora, sizeof(book[IDcont].editora), stdin);
+        to_maiuscula(book[IDcont].editora, 26, 24);
+
+        fflush(stdin);
+        SomenteNumeros(&book[IDcont].edicao, 25, 27);
+        fflush(stdin);
+        SomenteNumeros(&book[IDcont].paginas, 26, 30);
+
+        //gotoxy(23, 33);
+        fgets(book[IDcont].ISBN, sizeof(book[IDcont].ISBN), stdin);
+        to_maiuscula(book[IDcont].ISBN, 23, 33);
+
+        book[IDcont].ID = IDcont;
+
+        do
+        {
+            gotoxy(27, 37);
+            textcolor(LIGHTGREEN);
+            printf("PRESSIONE ENTER PARA CONFIRMAR INCLUSAO OU ESC PARA CANCELAR.");
+            gotoxy(120, 44);
+            setas=getch();
+            if (setas==ENTER)
+            {
+                if((arq=fopen("teste.txt", "a")) == NULL)
+                {
+                    clrscr();
+                    gotoxy(1, 1);
+                    printf("Erro ao abrir arquivo! Por favor, tente novamente.\n");
+                    getch();
+                    break;
+                }
+                else
+                {
+                    fprintf(arq, "\n%d : %s : %s : %s : %s : %d : %d : %s", book[IDcont].ID, book[IDcont].titulo, book[IDcont].autor, book[IDcont].genero, book[IDcont].editora, book[IDcont].edicao, book[IDcont].paginas, book[IDcont].ISBN);
+                    IDcont++;
+                }
+
+                fclose(arq);
+            }
+
+        } while (setas != ESC && setas != ENTER);
+
+        textcolor(WHITE);
+
+    } while (controle != 0);
+
+}
+
+void pesq_livro()
+{
+    int j, contador=1;
+    char setas, pesqLivro[50];
+
+    do
+    {
+        cabecalho();
+        mostralivro();
+        rodape();
+
+        if (contador<1)
+            contador=3;
+        else if (contador>3)
+            contador=1;
+
+        switch(contador)
+        {
+            case(1):
+                gotoxy(79, 15);
+                printf("Escolha a forma de pesquisa:");
+                textcolor(LIGHTGREEN);
+                gotoxy(83, 20);
+                printf("Pesquisa por livro   <--");
+                textcolor(WHITE);
+                gotoxy(83, 23);
+                printf("Pesquisa por autor      ");
+                gotoxy(83, 26);
+                printf("Pesquisa por genero      ");
+                gotoxy(120, 44);
+
+                setas = getch();
+                if(setas==ENTER){
+                    do
+                    {
+                        clrscr();
+                        cabecalho();
+                        mostralivro();
+                        rodape();
+
+                        fgets(pesqLivro, sizeof(pesqLivro), stdin);
+                        if(pesqLivro == NULL)
+                            printf("\n\nNULOOOOOOO\n\n");
+
+                        printf("\n\n%s\n\n", pesqLivro);
+
+                        setas=getch();
+                        if(setas==ESC)
+                            break;
+                    } while(setas!=ESC);
+                }
+
+                else if(setas==ACIMA)
+                    contador=3;
+                else if(setas==ABAIXO)
+                    contador++;
+                break;
+            /*
+                fgets(pesqLivro, sizeof(pesqLivro), stdin);
+
+                for(j=1; j<IDcont; j++)
+                {
+                    if (strncmp(book[j].titulo, pesqLivro, 3) == 0)
+                    {
+                        contador++;
+                        mostradados();
+                        gotoxy(25, 15);
+                        printf("%s", strupr(book[j].titulo));
+                        gotoxy(24, 18);
+                        printf("%s", book[j].autor);
+                        gotoxy(25, 21);
+                        printf("%s", book[j].genero);
+                        gotoxy(26, 24);
+                        printf("%s", book[j].editora);
+                        gotoxy(25, 27);
+                        printf("%d", book[j].edicao);
+                        gotoxy(26, 30);
+                        printf("%d", book[j].paginas);
+                        gotoxy(23, 33);
+                        printf("%s", book[j].ISBN);
+
+                        printf("\n\nID: %d", book[j].ID);
+                        printf("\nLivro: %s", strupr(book[j].titulo));
+                        printf("\nAutor: %s", strupr(book[j].autor));
+                        printf("\nGenero: %s", strupr(book[j].genero));
+                        printf("\nEditora: %s", strupr(book[j].editora));
+
+       printf("\nEdicao: %d", book[j].edicao);
+                        printf("\nPaginas: %d", book[j].paginas);
+                        printf("\nISBN: %s", book[j].ISBN);
+
+                    }
+                }
+                break;
+
+            */
+            case(2):
+                textcolor(WHITE);
+                gotoxy(79, 15);
+                printf("Escolha a forma de pesquisa:");
+                gotoxy(83, 20);
+                printf("Pesquisa por livro      ");
+                textcolor(LIGHTGREEN);
+                gotoxy(83, 23);
+                printf("Pesquisa por autor   <--");
+                textcolor(WHITE);
+                gotoxy(83, 26);
+                printf("Pesquisa por genero      ");
+                gotoxy(120, 44);
+
+                setas = getch();
+                if(setas==ENTER){
+                    clrscr();
+                    printf("BLABLABLA ESCOLHA 2");
+                }
+                else if(setas==ACIMA)
+                    contador--;
+                else if(setas==ABAIXO)
+                    contador++;
+                break;
+            case(3):
+                textcolor(WHITE);
+                gotoxy(79, 15);
+                printf("Escolha a forma de pesquisa:");
+                gotoxy(83, 20);
+                printf("Pesquisa por livro      ");
+                gotoxy(83, 23);
+                printf("Pesquisa por autor      ");
+                textcolor(LIGHTGREEN);
+                gotoxy(83, 26);
+                printf("Pesquisa por genero   <--");
+                textcolor(WHITE);
+                gotoxy(120, 44);
+
+                setas = getch();
+                if(setas==ENTER){
+                    clrscr();
+                    printf("BLABLABLA ESCOLHA 3");
+                }
+                else if(setas==ACIMA)
+                    contador--;
+                else if(setas==ABAIXO)
+                    contador=1;
+                break;
+            default:
+                printf("\n\nESCOLHA INVALIDA!\n");
+                getch();
+                break;
+        }
+
+        if (setas==ESC) {
+            clrscr();
+            return;
+        }
+
+    } while (contador != 0);
+}
+
+void alterar()
+{
+    clrscr();
+    int j, contador=0;
+    char pesqLivro[100];
+
+    fflush(stdin);
+    printf("\n\nDigite o nome do livro que deseja alterar: ");
+    fgets(pesqLivro, sizeof(pesqLivro), stdin);
+
+    for(j=1; j<IDcont; j++)
+    {
+        if (strncmp(book[j].titulo, pesqLivro, 3) == 0)
+        {
+            contador++;
+            printf("\n\n\nID: %d", book[j].ID);
+            printf("\nLivro: %s\n", strupr(book[j].titulo));
+            printf("Genero: %s\n", book[j].genero);
+        }
+    }
+
+    if (contador == 0)
+        printf("\nNENHUM LIVRO ENCONTRADO!\n");
+    else {
+        gotoxy(5,2);
+        printf("\n%d LIVROS ENCONTRADOS. Utilize as setas para escolher o livro que deseja alterar.", contador);
+        gotoxy(120,43);
+    }
+
+    getch();
+    clrscr();
+    return;
+}
+
