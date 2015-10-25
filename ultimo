@@ -60,9 +60,9 @@ int main()
 // FIM DO PROGRAMA
 
 //FUNÇÃO USADA PARA VALIDAR ENTRADA DE NUMERO INTEIRO
-int SomenteNumeros(int *i, int x, int y) {
+int SomenteNumeros(int i, int x, int y) {
     int invalido = 0;
-    int FimIndex;
+    int FimIndex, temp;
     char buffer[100];
     do {
         if (invalido) {
@@ -83,59 +83,68 @@ int SomenteNumeros(int *i, int x, int y) {
         clreol();
         errno = 0;
 
-    } while ((sscanf(buffer, "%d %n", i, &FimIndex) != 1) || buffer[FimIndex] || errno);
+    } while ((sscanf(buffer, "%d %n", &i, &FimIndex) != 1) || buffer[FimIndex] || errno);
 
-    return 0;
+    //temp = *i;
+
+    //i = temp;
+
+    printf("\ni: %d\n", i);
+    //printf("\ntemp: %d\n", temp);
+    //printf("*i: %u\n", *i);
+    //printf("&i: %d\n", &i);
+    //printf("buffer: %d\n", buffer);
+
+    return i;
 }
 
 int to_maiuscula (char *i, int x, int y)
 {
     int j, invalido=0;
+    int FimIndex;
     char buffer[100];
 
     do
     {
-        if(invalido==1)
+        fflush(stdin);
+
+        if(invalido)
         {
             gotoxy(37,37);
             textcolor(LIGHTRED);
             fputs("Dados invalidos! Digite ao menos um caractere.\n", stdout);
             textcolor(WHITE);
         }
-
-        //cputsxy(x, y, "                                                                              ");
+        invalido = 1;
+        cputsxy(x, y, "                                                                              ");
 
         gotoxy(x, y);
         if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
             return 1;
         }
-
-        invalido=strlen(buffer);
-
-
-
-        gotoxy(37,37);
-        clreol();
-        errno = 0;
-        /*
         else
         {
-            for(j=0; j <= strlen(i); j++)
+            for(j=0; j <= strlen(buffer); j++)
             {
-                if(i[j] == '\n')
+                if(buffer[j] == '\n')
                 {
-                    i[j] = '\0';
+                    buffer[j] = '\0';
                     //break;
                 }
                 else
                 {
-                    i[j] = toupper(i[j]);
-                    putchar(toupper(i[j]));
+                    buffer[j] = toupper(buffer[j]);
                 }
             }
         }
-        */
-    } while (fgets(buffer, sizeof(buffer), stdin) != NULL);
+
+        gotoxy(37,37);
+        clreol();
+        errno = 0;
+
+        strncpy(i, buffer, sizeof(buffer));
+
+    } while (strlen(buffer) <= 1 || sscanf(buffer, "%s %n", buffer, &FimIndex) != 1); //verifica se o conteudo de buffer é uma string com mais de 1 caracteres.
 
     return 0;
 }
@@ -195,7 +204,7 @@ void cabecalho()
     gotoxy(1,1);
     printf("\n ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿\n");
     printf(" ³                                                                                                                    ³\n");
-    printf(" ³                                             BIBLIOTECA A.S.T.R.A.                                                  ³\n");
+    printf(" ³                                               BIBLIOTECA A.S.T.R.A.F                                               ³\n");
     printf(" ³                                                                                                                    ³\n");
     printf(" ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ\n");
 }
@@ -685,7 +694,6 @@ void teste()
 
 void adicionar_livro()
 {
-
     FILE * arq;
 
     char setas;
@@ -697,9 +705,6 @@ void adicionar_livro()
         rodape();
         mostradados();
 
-        if(setas==ESC)
-            break;
-
         //gotoxy(25, 15);
         //fgets(book[IDcont].titulo, sizeof(book[IDcont].titulo), stdin);
         to_maiuscula(book[IDcont].titulo, 25, 15);
@@ -709,20 +714,22 @@ void adicionar_livro()
         to_maiuscula(book[IDcont].autor, 24, 18);
 
         //gotoxy(25, 21);
-        fgets(book[IDcont].genero, sizeof(book[IDcont].genero), stdin);
+        //fgets(book[IDcont].genero, sizeof(book[IDcont].genero), stdin);
         to_maiuscula(book[IDcont].genero, 25, 21);
 
         //gotoxy(26, 24);
-        fgets(book[IDcont].editora, sizeof(book[IDcont].editora), stdin);
+        //fgets(book[IDcont].editora, sizeof(book[IDcont].editora), stdin);
         to_maiuscula(book[IDcont].editora, 26, 24);
 
-        fflush(stdin);
-        SomenteNumeros(&book[IDcont].edicao, 25, 27);
-        fflush(stdin);
-        SomenteNumeros(&book[IDcont].paginas, 26, 30);
+        //fflush(stdin);
+        SomenteNumeros(book[IDcont].edicao, 25, 27);
+        printf("edicao: %d", book[IDcont].edicao);
+        //fflush(stdin);
+        SomenteNumeros(book[IDcont].paginas, 26, 30);
+        printf("paginas: %d", book[IDcont].paginas);
 
         //gotoxy(23, 33);
-        fgets(book[IDcont].ISBN, sizeof(book[IDcont].ISBN), stdin);
+        //fgets(book[IDcont].ISBN, sizeof(book[IDcont].ISBN), stdin);
         to_maiuscula(book[IDcont].ISBN, 23, 33);
 
         book[IDcont].ID = IDcont;
@@ -746,8 +753,16 @@ void adicionar_livro()
                 }
                 else
                 {
+                    clrscr();
+                    printf("%d", book[IDcont].edicao);
+                    printf("\n%d", book[IDcont].paginas);
                     fprintf(arq, "\n%d : %s : %s : %s : %s : %d : %d : %s", book[IDcont].ID, book[IDcont].titulo, book[IDcont].autor, book[IDcont].genero, book[IDcont].editora, book[IDcont].edicao, book[IDcont].paginas, book[IDcont].ISBN);
                     IDcont++;
+                    gotoxy(1, 37);
+                    clreol();
+                    gotoxy(47, 37);
+                    textcolor(LIGHTCYAN);
+                    printf("LIVRO INSERIDO COM SUCESSO!");
                 }
 
                 fclose(arq);
@@ -755,7 +770,20 @@ void adicionar_livro()
 
         } while (setas != ESC && setas != ENTER);
 
+        gotoxy(27, 38);
+        printf("Para adicionar outro livro pressione      . Para sair pressione    .");
+        gotoxy(64, 38);
+        textcolor(LIGHTGREEN);
+        printf("ENTER");
+        gotoxy(91, 38);
+        printf("ESC");
         textcolor(WHITE);
+
+        setas=getch();
+        if(setas==ESC) {
+            clrscr();
+            controle=0;
+        }
 
     } while (controle != 0);
 
