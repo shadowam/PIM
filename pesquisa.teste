@@ -148,7 +148,7 @@ void load_dados()
 {
     FILE* arq;
 
-    char buffer[99];
+    char buffer[500];
 
     int i=1;
 
@@ -536,19 +536,19 @@ int teste(num)
 
     while (setas != ESC) {
         mostradados();
-        gotoxy(26,15);
+        gotoxy(25,15);
         printf("%s", book[num].titulo);
-        gotoxy(23,18);
+        gotoxy(24,18);
         printf("%s", book[num].autor);
-        gotoxy(24,21);
+        gotoxy(25,21);
         printf("%s", book[num].genero);
-        gotoxy(27,24);
+        gotoxy(26,24);
         printf("%s", book[num].editora);
-        gotoxy(23,27);
+        gotoxy(25,27);
         printf("%d", book[num].edicao);
         gotoxy(26,30);
         printf("%d", book[num].paginas);
-        gotoxy(22,33);
+        gotoxy(23,33);
         printf("%d", book[num].ISBN);
         gotoxy(120,46);
 
@@ -568,10 +568,9 @@ int teste(num)
             }
 
     */
-    }
-
-    if (setas == ESC) {
-        return 1;
+        if (setas == ESC) {
+            return 1;
+        }
     }
 
     return 0;
@@ -615,6 +614,7 @@ void adicionar_livro()
 
         //gotoxy(23, 33);
         //fgets(book[IDcont].ISBN, sizeof(book[IDcont].ISBN), stdin);
+        //fflush(stdin);
         //to_maiuscula(book[IDcont].ISBN, 23, 33);
         SomenteNumeros(&book[IDcont].ISBN, 23, 33);
 
@@ -676,7 +676,7 @@ void adicionar_livro()
 void pesq_livro()
 {
     int j, contador=1;
-    char setas, pesqLivro[50];
+    char setas, pesqLivro[100];
 
     do
     {
@@ -741,9 +741,12 @@ void pesq_livro()
 
                     } while (strlen(pesqLivro) <= 3 || (sscanf(pesqLivro, "%s %n", pesqLivro, &FimIndex) != 1));
 
+                    qntlivros=0;
+
                     for(j=1; j<=IDcont; j++)
                     {
-                        if(strncmp(book[j].titulo, strupr(pesqLivro), strlen(pesqLivro)) == 0)
+                        //if(strncmp(book[j].titulo, strupr(pesqLivro), strlen(pesqLivro)) == 0)
+                        if(strstr(book[j].titulo, strupr(pesqLivro)) != NULL)
                         {
                             qntlivros++;
                         }
@@ -756,6 +759,7 @@ void pesq_livro()
                         gotoxy(81,28);
                         printf("Nenhum livro encontrado!");
                         gotoxy(120,46);
+                        getch();
                     }
                     else
                     {
@@ -768,34 +772,35 @@ void pesq_livro()
                         printf("%d LIVRO(S) ENCONTRADO(S)!\n\n", qntlivros);
 
                         int controle=1, i=1;
-                        int linhas=11, linhas2[100];
+                        int linhas=11, linhas2[20];
                         int salvaID[100];
                         char setas2;
 
-                        salvaID[0]=0;
-
                         for(j=1; j<=IDcont; j++)
                         {
-                            if(strncmp(book[j].titulo, strupr(pesqLivro), strlen(pesqLivro)) == 0)
+                            if(strstr(book[j].titulo, strupr(pesqLivro)) != NULL)
                             {
                                 linhas2[i]=linhas+1;
                                 salvaID[i]=book[j].ID;
-                                i=i+1;
                                 gotoxy(10,linhas);
                                 printf("ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿\n");
                                 gotoxy(10,linhas+1);
+                                //printf("book[j].ID: %d   |  i: %d", book[j].ID, i);
                                 printf("³ Livro: %s", book[j].titulo);
                                 gotoxy(53,linhas+1);
+                                //printf("linhas2[%d]: %d", i, linhas2[i]);
                                 printf("³ Autor: %s", book[j].autor);
                                 gotoxy(98,linhas+1);
                                 printf("³ Edicao: %d", book[j].edicao);
+                                //printf("³ SalvaID[%d]: %d", j, salvaID[i]);
                                 gotoxy(114,linhas+1);
-                                //printf("³");
+                                printf("³");
                                 //gotoxy(53,linhas+2);
                                 //printf("%d", salvaID[i]);
                                 gotoxy(10,linhas+2);
                                 printf("ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ\n");
                                 linhas=linhas+3;
+                                i=i+1;
                             }
                         }
 
@@ -833,13 +838,11 @@ void pesq_livro()
                                 if(controle>qntlivros){
                                     controle=1;
                                     gotoxy(5,linhas2[controle]);
-                                    //printf("controle: %d, linhas2[controle]: %d", controle, linhas2[controle]);
                                     printf("-->");
                                     gotoxy(120,46);
                                 }
                                 else{
                                     gotoxy(5,linhas2[controle]);
-                                    //printf("controle: %d, linhas2[controle]: %d", controle, linhas2[controle]);
                                     printf("-->");
                                     gotoxy(120,46);
                                 }
@@ -850,13 +853,11 @@ void pesq_livro()
                                     if(controle<1){
                                         controle=qntlivros;
                                         gotoxy(5,linhas2[controle]);
-                                        //printf("controle: %d, linhas2[controle]: %d", controle, linhas2[controle]);
                                         printf("-->");
                                         gotoxy(120,46);
                                     }
                                     else{
                                         gotoxy(5,linhas2[controle]);
-                                        //printf("controle: %d, linhas2[controle]: %d", controle, linhas2[controle]);
                                         printf("-->");
                                         gotoxy(120,46);
                                     }
@@ -867,7 +868,6 @@ void pesq_livro()
 
                         if (setas2==ENTER) {
                             teste(salvaID[controle]);
-                            getch();
                         }
                         else {
                             if (setas==ESC) {
@@ -877,10 +877,6 @@ void pesq_livro()
                     }
 
                 }
-
-                //clrscr();
-                //printf("UOU FILHOTE!");
-                //getch();
 
                 else if(setas==ACIMA)
                     contador=3;
