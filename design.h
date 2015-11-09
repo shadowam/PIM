@@ -1,3 +1,4 @@
+
 // INICIO DA FUNÇÃO PARA MOSTRAR O CABEÇALHO DO PROGRAMA
 void cabecalho()
 {
@@ -13,7 +14,7 @@ void cabecalho()
 // INICIO DA FUNÇÃO PARA MOSTRAR O RODAPE DO PROGRAMA
 void rodape()
 {
-    gotoxy(1,40);
+    gotoxy(1,41);
     printf("\n ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿\n");
     printf(" ³                                                                                                                    ³\n");
     printf(" ³                                               ASTRA WINTER TECNOLOGIA                                              ³\n");
@@ -26,6 +27,7 @@ void retangulo()
 {
     gotoxy(1,6);
     printf("\n ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿\n");
+    printf(" ³                                                                                                                    ³\n");
     printf(" ³                                                                                                                    ³\n");
     printf(" ³                                                                                                                    ³\n");
     printf(" ³                                                                                                                    ³\n");
@@ -98,6 +100,7 @@ void mostralivro()
     printf(" ³                DO$$NO                                                                                              ³\n");
     printf(" ³                NNDN                                                                                                ³\n");
     printf(" ³                                                                                                                    ³\n");
+    printf(" ³                                                                                                                    ³\n");
     printf(" ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ\n");
 }
 // FIM DA FUNÇÃO MOSTRAR LIVRO
@@ -105,38 +108,38 @@ void mostralivro()
 void mostradados()
 {
     gotoxy(1,7);
-    printf("            ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿\n");
-    printf("            ³                                   CADASTRO DE NOVO LIVRO                                   ³\n");
-    printf("            ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ\n");
-    printf("            ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿\n");
-    printf("            ³                                                                                            ³\n");
-    printf("            ³   Titulo:                                                                                  ³\n");
-    printf("            ³                                                                                            ³\n");
-    printf("            ³                                                                                            ³\n");
-    printf("            ³   Autor:                                                                                   ³\n");
-    printf("            ³                                                                                            ³\n");
-    printf("            ³                                                                                            ³\n");
-    printf("            ³   Genero:                                                                                  ³\n");
-    printf("            ³                                                                                            ³\n");
-    printf("            ³                                                                                            ³\n");
-    printf("            ³   Editora:                                                                                 ³\n");
-    printf("            ³                                                                                            ³\n");
-    printf("            ³                                                                                            ³\n");
-    printf("            ³   Edicao:                                                                                  ³\n");
-    printf("            ³                                                                                            ³\n");
-    printf("            ³                                                                                            ³\n");
-    printf("            ³   Ano:                                                                                     ³\n");
-    printf("            ³                                                                                            ³\n");
-    printf("            ³                                                                                            ³\n");
-    printf("            ³   Paginas:                                                                                 ³\n");
-    printf("            ³                                                                                            ³\n");
-    printf("            ³                                                                                            ³\n");
-    printf("            ³   ISBN:                                                                                    ³\n");
-    printf("            ³                                                                                            ³\n");
-    printf("            ³                                                                                            ³\n");
-    printf("            ³   Localizacao:                                                                             ³\n");
-    printf("            ³                                                                                            ³\n");
-    printf("            ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ\n");
+    printf("             ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿\n");
+    printf("             ³                                   CADASTRO DE NOVO LIVRO                                   ³\n");
+    printf("             ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ\n");
+    printf("             ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿\n");
+    printf("             ³                                                                                            ³\n");
+    printf("             ³   Titulo:                                                                                  ³\n");
+    printf("             ³                                                                                            ³\n");
+    printf("             ³                                                                                            ³\n");
+    printf("             ³   Autor:                                                                                   ³\n");
+    printf("             ³                                                                                            ³\n");
+    printf("             ³                                                                                            ³\n");
+    printf("             ³   Genero:                                                                                  ³\n");
+    printf("             ³                                                                                            ³\n");
+    printf("             ³                                                                                            ³\n");
+    printf("             ³   Editora:                                                                                 ³\n");
+    printf("             ³                                                                                            ³\n");
+    printf("             ³                                                                                            ³\n");
+    printf("             ³   Edicao:                                                                                  ³\n");
+    printf("             ³                                                                                            ³\n");
+    printf("             ³                                                                                            ³\n");
+    printf("             ³   Ano:                                                                                     ³\n");
+    printf("             ³                                                                                            ³\n");
+    printf("             ³                                                                                            ³\n");
+    printf("             ³   Paginas:                                                                                 ³\n");
+    printf("             ³                                                                                            ³\n");
+    printf("             ³                                                                                            ³\n");
+    printf("             ³   ISBN:                                                                                    ³\n");
+    printf("             ³                                                                                            ³\n");
+    printf("             ³                                                                                            ³\n");
+    printf("             ³   Localizacao:                                                                             ³\n");
+    printf("             ³                                                                                            ³\n");
+    printf("             ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ\n");
     gotoxy(25,15);
 }
 
@@ -185,4 +188,58 @@ void listalivro()
     printf("            ³                                                                                            ³\n");
     printf("            ³                                                                                            ³\n");
     printf("            ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ\n");
+}
+
+void mostrabotoes()
+{
+    gotoxy(1,39);
+    printf("            ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿\n");
+    printf("            ³     - MUDAR STATUS   ³      - ALTERAR LIVRO   ³      - EXCLUIR LIVRO   ³       - SAIR      ³\n");
+    printf("            ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ\n");
+    gotoxy(16,40);
+    textcolor(LIGHTRED);
+    printf("F1");
+    gotoxy(40,40);
+    printf("F2");
+    gotoxy(65,40);
+    printf("F3");
+    gotoxy(90,40);
+    printf("ESC");
+    textcolor(WHITE);
+}
+
+
+void mostradel()
+{
+    gotoxy(1,10);
+    printf("            ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿\n");
+    printf("            ³  \\                        /     \\                        /     \\                        /  ³\n");
+    printf("            ³   \\                      /       \\                      /       \\                      /   ³\n");
+    printf("            ³    \\                    /         \\                    /         \\                    /    ³\n");
+    printf("            ³     \\                  /           \\                  /           \\                  /     ³\n");
+    printf("            ³      \\                /             \\                /             \\                /      ³\n");
+    printf("            ³       \\              /               \\              /               \\              /       ³\n");
+    printf("            ³        \\            /                 \\            /                 \\            /        ³\n");
+    printf("            ³         \\          /                   \\          /                   \\          /         ³\n");
+    printf("            ³          \\        /                     \\        /                     \\        /          ³\n");
+    printf("            ³           \\      /                       \\      /                       \\      /           ³\n");
+    printf("            ³            \\    /                         \\    /                         \\    /            ³\n");
+    printf("            ³             \\  /                           \\  /                           \\  /             ³\n");
+    printf("            ³              \\/                             \\/                             \\/              ³\n");
+    printf("            ³              /\\                             /\\                             /\\              ³\n");
+    printf("            ³             /  \\                           /  \\                           /  \\             ³\n");
+    printf("            ³            /    \\                         /    \\                         /    \\            ³\n");
+    printf("            ³           /      \\                       /      \\                       /      \\           ³\n");
+    printf("            ³          /        \\                     /        \\                     /        \\          ³\n");
+    printf("            ³         /          \\                   /          \\                   /          \\         ³\n");
+    printf("            ³        /            \\                 /            \\                 /            \\        ³\n");
+    printf("            ³       /              \\               /              \\               /              \\       ³\n");
+    printf("            ³      /                \\             /                \\             /                \\      ³\n");
+    printf("            ³     /                  \\           /                  \\           /                  \\     ³\n");
+    printf("            ³    /                    \\         /                    \\         /                    \\    ³\n");
+    printf("            ³   /                      \\       /                      \\       /                      \\   ³\n");
+    printf("            ³  /                        \\     /                        \\     /                        \\  ³\n");
+    printf("            ³ /                          \\   /                          \\   /                          \\ ³\n");
+    printf("            ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ\n");
+    gotoxy(120,47);
 }
