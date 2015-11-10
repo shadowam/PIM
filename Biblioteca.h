@@ -39,7 +39,6 @@ extern void mostradados(void);
 extern void mostradados2(void);
 extern void listalivro(void);
 extern void mostrabotoes(void);
-extern void mostradel(void);
 
 extern int get_key();
 extern int SomenteNumeros(int *i, int x, int y);
