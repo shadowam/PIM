@@ -10,9 +10,9 @@
 #define F2 60 + 256
 #define F3 61 + 256
 
-int IDcont=1, ultimo_livro;
+extern int IDcont;
 
-typedef struct registro {
+struct livros {
     char titulo[100];
     char autor[100];
     char genero[50];
@@ -25,20 +25,33 @@ typedef struct registro {
     int ID;
     int paginas;
     float aval;
-} livros;
+};
 
-livros book[100];
+extern struct livros book[100];
 
-/*
-void load_dados(void);
-void menu(void);
-void cadastrar(void);
-void consulentes(void);
-void alterar(int);
-void adicionar_livro(void);
-void pesq_livro(void);
-int SomenteNumeros(int *i, int x, int y);
-char to_maiuscula (char *pal, int x, int y);
-int get_key(void);
-int infolivro(int);
-*/
+extern void consul_main(void);
+
+extern void cabecalho(void);
+extern void rodape(void);
+extern void retangulo(void);
+extern void mostralivro(void);
+extern void mostradados(void);
+extern void mostradados2(void);
+extern void listalivro(void);
+extern void mostrabotoes(void);
+extern void mostradel(void);
+
+extern int get_key();
+extern int SomenteNumeros(int *i, int x, int y);
+extern char to_maiuscula (char *pal, int x, int y);
+extern void load_dados(void);
+
+extern void sair(void);
+extern void adicionar_livro(void);
+extern void alterar(int id);
+extern void excluir(int id);
+extern int infolivro(int num);
+extern void pesq_livro(void);
+extern void pesq_autor(void);
+extern void pesq_genero(void);
+extern void menu(void);
